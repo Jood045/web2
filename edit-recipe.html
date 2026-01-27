@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Recipe</title>
+    <link rel="stylesheet" href="style.css">
+	<script src="js/script.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Edit Recipe</h2>
+
+    <form action="my-recipes.html">
+
+    <!-- Name -->
+    Name:
+    <input type="text" value="Salad" required>
+    <br><br>
+
+    <!-- Category -->
+    Category:
+    <input type="text" value="Healthy" required>
+    <br><br>
+
+    <!-- Description -->
+    Description:
+    <textarea required>Fresh salad</textarea>
+    <br><br>
+
+    <!-- Ingredients -->
+    <h4>Ingredients:</h4>
+
+    <div id="ingredients-container">
+        Ingredient 1:
+        Name: <input type="text" value="Lettuce">
+        Quantity: <input type="text" value="1 cup">
+        <br><br>
+
+        Ingredient 2:
+        Name: <input type="text" value="Tomato">
+        Quantity: <input type="text" value="2 pieces">
+        <br><br>
+    </div>
+
+    <button type="button" onclick="addIngredient()">
+        + Add another ingredient
+    </button>
+
+    <br><br>
+
+    <!-- Instructions -->
+    <h4>Instructions:</h4>
+
+    <div id="steps-container">
+        Step 1:
+        <input type="text" value="Chop vegetables">
+        <br><br>
+
+        Step 2:
+        <input type="text" value="Mix all together">
+        <br><br>
+    </div>
+
+    <button type="button" onclick="addStep()">
+        + Add another step
+    </button>
+
+    <br><br>
+
+    <button class="btn">Update Recipe</button>
+
+</form>
+</div>
+
+</body>
+</html>

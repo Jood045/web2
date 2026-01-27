@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Recipe</title>
+    <link rel="stylesheet" href="style.css">
+	<script src="js/script.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Add Recipe</h2>
+
+    <form action="my-recipes.html">
+        <input placeholder="Recipe Name"><br><br>
+        <input placeholder="Category"><br><br>
+        <textarea placeholder="Description"></textarea><br><br>
+        <input type="file"><br><br>
+<h4>Ingredients:</h4>
+
+<div id="ingredients-container">
+    Ingredient 1:
+    Name: <input type="text" required>
+    Quantity: <input type="text" required>
+    <br><br>
+</div>
+
+<button type="button" onclick="addIngredient()">
+    + Add another ingredient
+</button>
+<h4>Instructions:</h4>
+
+<div id="steps-container">
+    Step 1:
+    <input type="text" required>
+    <br><br>
+</div>
+
+<button type="button" onclick="addStep()">
+    + Add another step
+</button>
+        <input placeholder="Video link (optional)"><br><br>
+
+        <button class="btn">Add</button>
+    </form>
+</div>
+
+</body>
+</html>
