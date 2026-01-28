@@ -18,7 +18,7 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   color: #3a3a3a;
-  background: #eef5e3; /* لون واحد هادي */
+  background: #eef5e3;
 }
 
 /* ===== CONTAINER ===== */
@@ -30,7 +30,7 @@ body {
 /* ===== HEADER ===== */
 header {
   background: #7fa35a;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.12);
   border-bottom-left-radius: 26px;
   border-bottom-right-radius: 26px;
 }
@@ -44,7 +44,7 @@ header {
 
 .brand {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 800;
   color: white;
   text-decoration: none;
 }
@@ -58,12 +58,13 @@ header {
   color: #f8faf4;
   text-decoration: none;
   font-weight: 600;
-  padding: 8px 14px;
-  border-radius: 20px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: background 0.25s ease;
 }
 
 .nav a:hover {
-  background: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.22);
 }
 
 /* ===== MAIN ===== */
@@ -77,13 +78,13 @@ main {
   border-radius: 18px;
   padding: 22px;
   margin-bottom: 28px;
-  border: 1px solid #dedcd6;
+  border: 1px solid #d9e2c9;
   box-shadow: 0 8px 18px rgba(0,0,0,0.06);
   position: relative;
   overflow: hidden;
 }
 
-/* دائرة خلف البوكس */
+/* decorative circle */
 .card::before {
   content: "";
   position: absolute;
@@ -91,7 +92,7 @@ main {
   right: -50px;
   width: 140px;
   height: 140px;
-  background: rgba(216,167,177,0.25); /* وردي هادي */
+  background: rgba(216,167,177,0.25);
   border-radius: 50%;
 }
 
@@ -99,14 +100,16 @@ main {
 .badge {
   display: inline-block;
   background: #efe1e5;
+  color: #3a3a3a;
   padding: 6px 14px;
-  border-radius: 20px;
+  border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
+  margin-bottom: 10px;
 }
 
 h2 {
-  color: #d8a7b1; /* وردي هادي مثل الأول */
+  color: #d8a7b1;
   margin-top: 0;
 }
 
@@ -123,6 +126,7 @@ h2 {
   cursor: pointer;
   font-weight: 700;
   background: #e5e5e5;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .btn-primary {
@@ -136,8 +140,8 @@ h2 {
 }
 
 .btn:hover {
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
   transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.12);
 }
 
 .btn-row {
@@ -153,7 +157,7 @@ h2 {
 
 label {
   display: block;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
   margin-bottom: 6px;
 }
@@ -164,20 +168,30 @@ textarea {
   width: 100%;
   padding: 11px 12px;
   border-radius: 14px;
-  border: 1px solid #dedcd6;
+  border: 1px solid #d9e2c9;
+  background: white;
   font-family: inherit;
 }
 
-textarea {
-  min-height: 110px;
+input[type="file"] {
+  padding: 8px;
+  background: #fafafa;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #7fa35a;
 }
 
 /* ===== TABLE ===== */
 .table-wrap {
   background: #fffefc;
   border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid #dedcd6;
+  overflow-x: auto;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+  border: 1px solid #d9e2c9;
 }
 
 table {
@@ -185,24 +199,38 @@ table {
   border-collapse: collapse;
 }
 
-th {
-  background: #efe1e5; /* وردي هادي */
+thead th {
   padding: 14px;
-  font-weight: 700;
   text-align: left;
+  font-size: 13px;
+  font-weight: 800;
+  background: #efe1e5;
 }
 
-td {
+tbody td {
   padding: 14px;
-  border-bottom: 1px solid #dedcd6;
+  border-bottom: 1px solid #d9e2c9;
 }
 
 tbody tr:nth-child(even) {
   background: rgba(127,163,90,0.08);
 }
 
-tbody tr:hover {
-  background: rgba(216,167,177,0.15);
+/* ===== LINKS INSIDE TABLE ===== */
+table a {
+  color: #7fa35a;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+table a:hover {
+  color: #d8a7b1;
+  text-decoration: underline;
+}
+
+
+table a:visited {
+  color: #9b8f8f; 
 }
 
 /* ===== FOOTER ===== */
@@ -234,49 +262,51 @@ footer {
 
     <section class="card">
       <span class="badge">Theme Preview</span>
-      <h2>| Warm & Cozy UI</h2>
-      <p class="hint">
-        Preview for header, forms, buttons, and tables.
-      </p>
-      <div class="btn-row">
-        <button class="btn btn-primary">Primary Button</button>
-        <button class="btn btn-secondary">Secondary Button</button>
-        <button class="btn">Neutral Button</button>
-      </div>
+      <h2>Warm & Cozy UI</h2>
+	  <p class="hint">Full UI preview with hover effects and details.</p>
     </section>
 
+    <!-- FORM -->
     <section class="card">
-      <h2>| Form Preview</h2>
-	  <p class="hint">Looks like Add / Edit Recipe form fields.</p>
+      <h2>Add / Edit Recipe</h2>
+      <p class="hint">Simple form including image upload.</p>
 
-      <div class="field">
-        <label>Recipe Name</label>
-        <input placeholder="Banana Oat Pancakes">
-      </div>
+      <form>
+        <div class="field">
+          <label>Recipe Name</label>
+          <input type="text" placeholder="Banana Oat Pancakes">
+        </div>
 
-      <div class="field">
-        <label>Category</label>
-        <select>
-          <option>Select</option>
-          <option>Breakfast Boosters</option>
-          <option>Lunchbox Heroes</option>
-          <option>Smart Snacks</option>
-        </select>
-      </div>
+        <div class="field">
+          <label>Category</label>
+          <select>
+            <option>Select</option>
+            <option>Breakfast Boosters</option>
+            <option>Lunchbox Heroes</option>
+            <option>Smart Snacks</option>
+          </select>
+        </div>
 
-      <div class="field">
-        <label>Description</label>
-        <textarea placeholder="Short, kid-friendly description..."></textarea>
-      </div>
+        <div class="field">
+          <label>Description</label>
+          <textarea placeholder="Short, kid-friendly description..."></textarea>
+        </div>
 
-      <div class="btn-row">
-        <button class="btn btn-primary">Submit</button>
-        <button class="btn">Reset</button>
-      </div>
+        <div class="field">
+          <label>Upload Image</label>
+          <input type="file">
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" type="submit">Submit</button>
+          <button class="btn" type="reset">Reset</button>
+        </div>
+      </form>
     </section>
 
+    <!-- TABLE -->
     <section class="card">
-      <h2>| Table Preview</h2>
+      <h2>Recipes Table</h2>
 
       <div class="table-wrap">
         <table>
@@ -290,13 +320,13 @@ footer {
           </thead>
           <tbody>
             <tr>
-              <td>Rainbow Veggie Pasta Cups</td>
+              <td><a href="#">Rainbow Veggie Pasta Cups</a></td>
               <td>—</td>
               <td>40</td>
               <td>Lunchbox Heroes</td>
             </tr>
             <tr>
-              <td>Banana Oat Pancakes</td>
+              <td><a href="#">Banana Oat Pancakes</a></td>
               <td>—</td>
               <td>18</td>
               <td>Breakfast Boosters</td>
