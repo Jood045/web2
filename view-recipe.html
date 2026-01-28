@@ -1,25 +1,502 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>View Recipe</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KidBites | View Recipe</title>
+
+  <!-- Google Font (optional, for exact look) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET ===== */
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #3a3a3a;
+      background: #eef5e3;
+    }
+
+    /* ===== CONTAINER ===== */
+    .container { width: 90%; margin: auto; }
+
+    /* ===== HEADER ===== */
+    header {
+      background: #7fa35a;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.12);
+      border-bottom-left-radius: 26px;
+      border-bottom-right-radius: 26px;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+    }
+
+    .brand {
+      font-size: 22px;
+      font-weight: 800;
+      color: white;
+      text-decoration: none;
+    }
+
+    .nav { display: flex; gap: 14px; }
+
+    .nav a {
+      color: #f8faf4;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 999px;
+      transition: background 0.25s ease;
+    }
+
+    .nav a:hover { background: rgba(255,255,255,0.22); }
+
+    /* ===== MAIN ===== */
+    main { padding: 40px 0 60px; }
+
+    /* ===== CARD ===== */
+    .card {
+      background: #fffefc;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 28px;
+      border: 1px solid #d9e2c9;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* decorative circle */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 140px;
+      height: 140px;
+      background: rgba(216,167,177,0.25);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* make content above circle */
+    .card > * { position: relative; z-index: 1; }
+
+    /* ===== TEXT ===== */
+    .badge {
+      display: inline-block;
+      background: #efe1e5;
+      color: #3a3a3a;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h2 { color: #d8a7b1; margin-top: 0; }
+    .hint { color: #8a8a8a; font-size: 14px; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      padding: 10px 18px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      background: #e5e5e5;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-primary { background: #7fa35a; color: white; }
+    .btn-secondary { background: #afc69a; color: #2f3a20; }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.12);
+    }
+
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* ===== FORM ===== */
+    .field { margin-bottom: 14px; }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 1px solid #d9e2c9;
+      background: white;
+      font-family: inherit;
+    }
+
+    input[type="file"] { padding: 8px; background: #fafafa; }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #7fa35a;
+    }
+
+    /* ===== TABLE ===== */
+    .table-wrap {
+      background: #fffefc;
+      border-radius: 18px;
+      overflow-x: auto;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+      border: 1px solid #d9e2c9;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      padding: 14px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 800;
+      background: #efe1e5;
+    }
+
+    tbody td {
+      padding: 14px;
+      border-bottom: 1px solid #d9e2c9;
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) { background: rgba(127,163,90,0.08); }
+
+    /* ===== LINKS INSIDE TABLE ===== */
+    table a {
+      color: #7fa35a;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    table a:hover {
+      color: #d8a7b1;
+      text-decoration: underline;
+    }
+
+    table a:visited { color: #9b8f8f; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 24px 0;
+      font-size: 14px;
+      color: #8a8a8a;
+    }
+
+    /* ===== page-specific helpers (minimal, still matches theme) ===== */
+    .top-grid{
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .recipe-photo{
+      width: 100%;
+      height: 220px;
+      border-radius: 16px;
+      border: 1px solid #d9e2c9;
+      background: rgba(127,163,90,0.10);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #7fa35a;
+    }
+
+    .actions-col{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+      margin-top: 30px;
+    }
+
+    .action-btn{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid #d9e2c9;
+      background: rgba(239,225,229,0.45);
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .action-btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.10);
+    }
+
+    .icon-chip{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #efe1e5;
+      border: 1px solid #d9e2c9;
+      font-size: 16px;
+    }
+
+    .two-col{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .creator-row{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid #d9e2c9;
+      background: rgba(216,167,177,0.18);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #7fa35a;
+      flex: 0 0 auto;
+    }
+
+    .pill{
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid #d9e2c9;
+      background: rgba(127,163,90,0.08);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    ul, ol{ margin: 10px 0 0; padding-left: 18px; }
+    li{ margin: 6px 0; }
+
+    .comment-row{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: end;
+      margin-top: 10px;
+    }
+
+    .comment-item{
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid #d9e2c9;
+      background: rgba(127,163,90,0.05);
+      margin-top: 10px;
+    }
+
+    .comment-meta{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    @media (max-width: 820px){
+      .top-grid{ grid-template-columns: 1fr; }
+      .actions-col{ margin-top: 0; }
+      .two-col{ grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
+
 <body>
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="index.html">KidBites</a>
 
-<div class="container">
-    <h2>Salad</h2>
-    <p>By Sara</p>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="user-page.html">User Page</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
 
-    <h4>Ingredients</h4>
-    <ul><li>Lettuce</li><li>Tomato</li></ul>
+  <main>
+    <div class="container">
 
-    <h4>Instructions</h4>
-    <ol><li>Mix</li></ol>
+      <!-- ===== TOP: recipe name/photo + action buttons ===== -->
+      <section class="card">
+        <span class="badge">Lunchbox Heroes</span>
+        <h2>Rainbow Veggie Pasta Cups</h2>
+        <p class="hint">Colorful pasta cups packed with veggies — fun, light, and kid-approved.</p>
 
-    <button class="btn">Like</button>
-    <button class="btn-outline">Favourite</button>
-    <button class="btn-outline">Report</button>
-</div>
+        <div class="top-grid">
+          <!-- Recipe photo -->
+          <div class="recipe-photo">[recipe photo]</div>
 
+          <!-- Action buttons (not functional in Phase 1) -->
+          <div class="actions-col">
+            <button class="action-btn" type="button" title="Not functional in Phase 1">
+              <span class="icon-chip">♥</span>
+              <span>Add to favourites</span>
+            </button>
+
+            <button class="action-btn" type="button" title="Not functional in Phase 1">
+              <span class="icon-chip">👍</span>
+              <span>Like recipe</span>
+            </button>
+
+            <button class="action-btn" type="button" title="Not functional in Phase 1">
+              <span class="icon-chip">🚩</span>
+              <span>Report recipe</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Recipe Creator ===== -->
+      <section class="card">
+        <h3 style="margin-top:0;">Recipe Creator</h3>
+
+        <div class="creator-row">
+          <div class="avatar">A</div>
+          <div>
+            <div style="font-weight:800;">Afnan Al-Shilail</div>
+            <div class="hint">[name] and [photo]</div>
+          </div>
+
+          <div style="margin-left:auto;">
+            <span class="pill">KidBites Chef</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Details: category + description ===== -->
+      <section class="card">
+        <h3 style="margin-top:0;">Details</h3>
+
+        <div class="two-col">
+          <div>
+            <div class="hint" style="margin-bottom:6px;"><strong>Category:</strong></div>
+            <span class="pill">Lunchbox Heroes</span>
+          </div>
+
+          <div>
+            <div class="hint" style="margin-bottom:6px;"><strong>Description:</strong></div>
+            <div class="hint" style="line-height:1.7;">
+              Warm, cozy pasta cups that parents trust and kids enjoy. Great for school lunchboxes and quick dinners.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Ingredients list ===== -->
+      <section class="card">
+        <h3 style="margin-top:0;">Ingredients</h3>
+        <ul>
+          <li>Whole-wheat pasta (1 cup)</li>
+          <li>Bell pepper (1/2 cup, diced)</li>
+          <li>Sweet corn (1/3 cup)</li>
+          <li>Cheddar cheese (1/4 cup)</li>
+          <li>Greek yogurt (2 tbsp)</li>
+        </ul>
+      </section>
+
+      <!-- ===== Instructions list ===== -->
+      <section class="card">
+        <h3 style="margin-top:0;">Instructions</h3>
+        <ol>
+          <li>Cook pasta until tender. Drain and let it cool slightly.</li>
+          <li>Mix pasta with veggies, cheese, and yogurt.</li>
+          <li>Spoon into muffin cups and bake for 10 minutes at 180°C.</li>
+          <li>Serve warm. Optional: add cucumber sticks on the side.</li>
+        </ol>
+      </section>
+
+      <!-- ===== Video (OPTIONAL) ===== -->
+      <section class="card">
+        <h3 style="margin-top:0;">Video</h3>
+        <p class="hint" style="margin-top:0;">[video or link to video]</p>
+
+        <!-- Example with a link (Phase 1 placeholder) -->
+        <p>
+          <a href="https://example.com/kidbites-video" style="color:#7fa35a; font-weight:700; text-decoration:none;">
+            Watch on KidBites (dummy link)
+          </a>
+        </p>
+
+        <!-- If you want "no video", replace the link above with this:
+        <p class="hint"><strong>No video for this recipe.</strong></p>
+        -->
+      </section>
+
+      <!-- ===== Comments (newest to oldest) ===== -->
+      <section class="card">
+        <h3 style="margin-top:0;">Comments</h3>
+        <p class="hint">Newest → Oldest</p>
+
+        <!-- Add comment form (Phase 1 not functional) -->
+        <div class="comment-row">
+          <div class="field" style="margin:0;">
+            <label for="comment">Add a comment</label>
+            <input id="comment" type="text" placeholder="Type your comment..." />
+          </div>
+          <button class="btn btn-primary" type="button" title="Not functional in Phase 1">Add Comment</button>
+        </div>
+
+        <!-- Existing comments -->
+        <div class="comment-item">
+          <div class="comment-meta">
+            <span class="avatar" style="width:34px;height:34px;border-radius:12px;">L</span>
+            <span>Lama (parent)</span>
+          </div>
+          <div class="hint">My kids loved this! Easy and colorful.</div>
+        </div>
+
+        <div class="comment-item">
+          <div class="comment-meta">
+            <span class="avatar" style="width:34px;height:34px;border-radius:12px;">S</span>
+            <span>Sarah</span>
+          </div>
+          <div class="hint">Tried it for lunchbox — stayed tasty even cold.</div>
+        </div>
+
+        <div class="comment-item">
+          <div class="comment-meta">
+            <span class="avatar" style="width:34px;height:34px;border-radius:12px;">M</span>
+            <span>Mona</span>
+          </div>
+          <div class="hint">Can I swap cheddar with mozzarella? (Not a real feature in phase 1 😄)</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    © 2026 KidBites — View Recipe (Phase 1)
+  </footer>
 </body>
 </html>
