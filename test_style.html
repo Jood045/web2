@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KidBites UI Preview</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+ :root{
+  /* ===== COLORS ===== */
+  --primary: #6B8E23;      /* Olive Green */
+  --secondary: #8FAE5D;    /* Soft Green */
+  --accent: #EFE6D8;       /* Warm Beige */
+
+  --bg-main: #F7F3EC;      /* Background */
+  --bg-soft: #EFE8DC;      /* Gradient layer */
+  --surface: #FFFEFC;     /* Cards / Tables */
+  --text: #3A3A3A;
+  --muted: #7A7A7A;
+  --border: #E0D8CC;
+
+  --radius: 14px;
+  --shadow-soft: 0 8px 18px rgba(0,0,0,0.06);
+  --shadow-strong: 0 12px 26px rgba(0,0,0,0.12);
+}
+
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text);
+
+  /* layered background */
+  background:
+    linear-gradient(180deg, var(--bg-main) 0%, var(--bg-soft) 100%),
+    radial-gradient(rgba(107,142,35,0.05) 1px, transparent 1px);
+
+  background-size: auto, 24px 24px;
+}
+
+/* ===== HEADER / NAVBAR ===== */
+header {
+  background: linear-gradient(135deg, #6B8E23, #8FAE5D);
+  box-shadow: var(--shadow-strong);
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 14px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #F7F3EC;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition: background 0.25s ease;
+}
+
+.nav a:hover {
+  background: rgba(255,255,255,0.18);
+}
+
+/* ===== MAIN LAYOUT ===== */
+main {
+  padding: 40px 0 60px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* decorative organic circle */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: rgba(143,174,93,0.18);
+  border-radius: 50%;
+}
+
+/* ===== BADGE ===== */
+.badge {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* ===== HEADINGS ===== */
+h1, h2 {
+  margin-top: 0;
+}
+
+h2 {
+  color: var(--primary);
+  padding-left: 14px;
+  position: relative;
+}
+
+h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 6px;
+  height: 70%;
+  background: var(--secondary);
+  border-radius: 3px;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: white;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* ===== FORM ===== */
+.form-group,
+.field {
+  margin-bottom: 14px;
+}
+
+label {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #fff;
+  font-family: inherit;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* ===== TABLE ===== */
+.table-wrap {
+  background: var(--surface);
+  border-radius: 18px;
+  overflow-x: auto;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+thead th {
+  padding: 14px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 800;
+  background: linear-gradient(180deg, #EFE6D8, #E6DCCB);
+  border-bottom: 1px solid var(--border);
+}
+
+tbody td {
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(143,174,93,0.12);
+}
+
+tbody tr:hover {
+  background: rgba(107,142,35,0.12);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 24px 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="container header-inner">
+    <a class="brand" href="#">KidBites</a>
+    <nav class="nav">
+      <a href="#">Home</a>
+      <a href="#">Recipes</a>
+      <a href="#">Login</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <!-- Small hero / card -->
+    <section class="card">
+      <span class="badge">Theme Preview</span>
+      <h2 style="margin:0 0 8px; color:var(--secondary);">Warm & Cozy UI</h2>
+      <p style="margin:0 0 12px; color:var(--muted);">
+        This page is a quick preview for header, footer, forms, buttons, and tables — no JS.
+      </p>
+      <div class="btn-row">
+        <button class="btn btn-primary">Primary Button</button>
+        <button class="btn btn-secondary">Secondary Button</button>
+        <button class="btn">Neutral Button</button>
+      </div>
+    </section>
+
+    <!-- Form preview -->
+    <section class="card">
+      <h2 style="margin:0 0 8px; color:var(--secondary);">Form Preview</h2>
+      <p class="hint" style="margin-top:0;">Looks like Add/Edit Recipe form fields.</p>
+
+      <form class="form">
+        <div class="row">
+          <div class="field">
+            <label>Recipe Name</label>
+            <input class="input" placeholder="Banana Oat Pancakes" />
+          </div>
+          <div class="field">
+            <label>Category</label>
+            <select class="select">
+              <option>Select</option>
+              <option>Breakfast Boosters</option>
+              <option>Lunchbox Heroes</option>
+              <option>Smart Snacks</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Description</label>
+          <textarea class="textarea" placeholder="Short, kid-friendly description..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Upload Photo</label>
+          <input class="input" type="file" />
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button">Submit</button>
+          <button class="btn" type="reset">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Table preview -->
+    <section class="card">
+      <h2 style="margin:0 0 8px; color:var(--secondary);">Table Preview</h2>
+      <p class="hint" style="margin-top:0;">Matches All Recipes / My Recipes / Admin tables styling.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Recipe Name</th>
+              <th>Photo</th>
+              <th>Likes</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#">Rainbow Veggie Pasta Cups</a></td>
+              <td><span class="thumb"></span></td>
+              <td>40</td>
+              <td>Lunchbox Heroes</td>
+            </tr>
+            <tr>
+              <td><a href="#">Banana Oat Pancakes</a></td>
+              <td><span class="thumb"></span></td>
+              <td>18</td>
+              <td>Breakfast Boosters</td>
+            </tr>
+            <tr>
+              <td><a href="#">Date Energy Balls</a></td>
+              <td><span class="thumb"></span></td>
+              <td>22</td>
+              <td>Smart Snacks</td>
+            </tr>
+			<tr>
+              <td><a href="#">Date Energy Balls</a></td>
+              <td><span class="thumb"></span></td>
+              <td>22</td>
+              <td>Smart Snacks</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  © 2026 KidBites – UI Preview
+</footer>
+</body>
+</html>
