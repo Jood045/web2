@@ -1,49 +1,228 @@
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f5f7f6;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: #3a3a3a;
+  background: #eef5e3;
 }
 
-header {
-    background: #2ecc71;
-    color: white;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-}
-
-a {
-    text-decoration: none;
-    color: #2ecc71;
-}
-
+/* ===== CONTAINER ===== */
 .container {
-    padding: 30px;
+  width: 90%;
+  margin: auto;
+}
+
+/* ===== HEADER ===== */
+header {
+  background: #7fa35a;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.12);
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 14px;
+}
+
+.nav a {
+  color: #f8faf4;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: background 0.25s ease;
+}
+
+.nav a:hover {
+  background: rgba(255,255,255,0.22);
+}
+
+/* ===== MAIN ===== */
+main {
+  padding: 40px 0 60px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: #fffefc;
+  border-radius: 18px;
+  padding: 22px;
+  margin-bottom: 28px;
+  border: 1px solid #d9e2c9;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 140px;
+  height: 140px;
+  background: rgba(216,167,177,0.25);
+  border-radius: 50%;
+}
+
+/* ===== TEXT ===== */
+.badge {
+  display: inline-block;
+  background: #efe1e5;
+  color: #3a3a3a;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #d8a7b1;
+  margin-top: 0;
+}
+
+.hint {
+  color: #8a8a8a;
+  font-size: 14px;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  padding: 10px 18px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  background: #e5e5e5;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary {
+  background: #7fa35a;
+  color: white;
+}
+
+.btn-secondary {
+  background: #afc69a;
+  color: #2f3a20;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.12);
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ===== FORM ===== */
+.field {
+  margin-bottom: 14px;
+}
+
+label {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 14px;
+  border: 1px solid #d9e2c9;
+  background: white;
+  font-family: inherit;
+}
+
+input[type="file"] {
+  padding: 8px;
+  background: #fafafa;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #7fa35a;
+}
+
+/* ===== TABLE ===== */
+.table-wrap {
+  background: #fffefc;
+  border-radius: 18px;
+  overflow-x: auto;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+  border: 1px solid #d9e2c9;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-table, th, td {
-    border: 1px solid #ccc;
+thead th {
+  padding: 14px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 800;
+  background: #efe1e5;
 }
 
-th, td {
-    padding: 10px;
-    text-align: center;
+tbody td {
+  padding: 14px;
+  border-bottom: 1px solid #d9e2c9;
 }
 
-.btn {
-    background: #2ecc71;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
+tbody tr:nth-child(even) {
+  background: rgba(127,163,90,0.08);
 }
 
-.btn-outline {
-    border: 1px solid #2ecc71;
-    padding: 8px 15px;
+table a {
+  color: #7fa35a;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+table a:hover {
+  color: #d8a7b1;
+  text-decoration: underline;
+}
+
+table a:visited {
+  color: #9b8f8f; 
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 24px 0;
+  font-size: 14px;
+  color: #8a8a8a;
 }

@@ -1,24 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KidBites | Sign Up</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="container">
-    <h2>Create Account</h2>
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="homepage.html">KidBites</a>
+      <nav class="nav">
+        <a href="homepage.html">Home</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
 
-    <form action="user.html">
-        <input placeholder="First Name"><br><br>
-        <input placeholder="Last Name"><br><br>
-        <input type="email" placeholder="Email"><br><br>
-        <input type="password" placeholder="Password"><br><br>
-        <input type="file"><br><br>
+  <main>
+    <div class="container">
 
-        <button class="btn">Sign Up</button>
-    </form>
-</div>
+      <section class="card" style="max-width:500px; margin:auto;">
+        <h2 style="text-align:center;">Create Account</h2>
+        <p class="hint" style="text-align:center;">
+          Please fill in your information to sign up.
+        </p>
+
+        <form action="user.html">
+          <div class="field">
+            <label>First Name</label>
+            <input type="text" required>
+          </div>
+
+          <div class="field">
+            <label>Last Name</label>
+            <input type="text" required>
+          </div>
+
+          <div class="field">
+            <label>Email</label>
+            <input type="email" required>
+          </div>
+
+          <div class="field">
+            <label>Password</label>
+            <input type="password" required>
+          </div>
+
+          <div class="field">
+            <label>Profile Image (Optional)</label>
+            <input type="file">
+          </div>
+
+          <div class="btn-row" style="justify-content:center; margin-top:16px;">
+            <button class="btn btn-primary" type="submit">
+              Register
+            </button>
+          </div>
+        </form>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    © 2026 KidBites
+  </footer>
 
 </body>
 </html>
