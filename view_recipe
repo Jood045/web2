@@ -156,7 +156,7 @@
   <!-- HEADER (uses your global classes) -->
   <header>
     <div class="container header-inner">
-      <a class="brand" href="index.html"><img src="logo.png" alt="logo" width=80px hight=80px>                
+      <a class="brand" href="index.html"><img src="images/logo.png" alt="logo" width=80px hight=80px>                
 	  </a>
 
       <nav class="nav">
@@ -178,7 +178,7 @@
 
         <div class="top-grid">
          <div class="recipe-photo">
-  <img src="C:\Users\Fnonh\OneDrive\Desktop\web 2 project folder\web2\images\pasta.jpg" alt="Pasta">
+  <img src="images/pasta.jpg" alt="Pasta">
    </div>
 
           <div class="actions-col">
