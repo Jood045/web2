@@ -22,13 +22,16 @@ header {
   box-shadow: 0 12px 26px rgba(0,0,0,0.12);
   border-bottom-left-radius: 26px;
   border-bottom-right-radius: 26px;
+  padding: 0; 
+  
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 0;
+   height: 90px;  
+  
 }
 
 .brand {
@@ -230,3 +233,7 @@ footer {
   color: #8a8a8a;
 }
 
+.logo {
+  max-height: 150px;   
+  width: auto;
+}
