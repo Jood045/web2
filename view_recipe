@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KidBites | View Recipe</title>
+
+ 
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Page-only layout CSS (minimal) -->
+  <style>
+    /* ===== View Recipe: layout-only helpers ===== */
+    .top-grid{
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .recipe-photo{
+      width:100%;
+      height:220px;
+      border-radius:16px;
+      border:1px solid #d9e2c9;
+      background: rgba(127,163,90,0.10);
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      color:#7fa35a;
+    }
+
+    .actions-col{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:stretch;
+      margin-top:26px;
+    }
+
+    .action-btn{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid #d9e2c9;
+      background: rgba(239,225,229,0.45);
+      font-weight:800;
+      cursor:pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .action-btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.10);
+    }
+
+    .icon-chip{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:#efe1e5;
+      border:1px solid #d9e2c9;
+      font-size:16px;
+      flex: 0 0 auto;
+    }
+
+    .creator-row{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    /* user avatar as IMAGE (no letter icons) */
+    .avatar-img{
+      width:44px;
+      height:44px;
+      border-radius:14px;
+      border:1px solid #d9e2c9;
+      object-fit:cover;
+      background:#fff;
+      flex:0 0 auto;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+
+    .comment-row{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap:10px;
+      align-items:end;
+      margin-top:10px;
+    }
+
+    .comment-item{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid #d9e2c9;
+      background: rgba(127,163,90,0.05);
+      margin-top:10px;
+    }
+
+    .comment-meta{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:6px;
+      font-weight:800;
+      font-size:13px;
+    }
+
+    /* small helper for inline link in Video section */
+    .video-link{
+      color:#7fa35a;
+      font-weight:700;
+      text-decoration:none;
+    }
+    .video-link:hover{
+      color:#d8a7b1;
+      text-decoration:underline;
+    }
+
+    .lineHeight{
+	line-height: 30px;
+	}
+	
+	.recipe-photo{
+  width: 100%;
+  height: 300px;          /* تثبيت مؤقت   */
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #d9e2c9;
+  background: #eef3e6;
+}
+
+.recipe-photo img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+  </style>
+</head>
+
+<body>
+  <!-- HEADER (uses your global classes) -->
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><img src="logo.png" alt="logo" width=80px hight=80px>                
+	  </a>
+
+      <nav class="nav">
+        <a href="user.html">Home</a>
+                <a href="my-recipes.html">My Recipes</a>
+                <a href="index.html">Sign Out</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- TOP: name + photo + action buttons -->
+      <section class="card">
+        <span class="badge">Lunch</span>
+        <h2>Rainbow Veggie Pasta Cups</h2>
+        <p class="hint">Colorful pasta cups packed with veggies — fun, light, and kid-approved.</p>
+
+        <div class="top-grid">
+         <div class="recipe-photo">
+  <img src="C:\Users\Fnonh\OneDrive\Desktop\web 2 project folder\web2\images\pasta.jpg" alt="Pasta">
+   </div>
+
+          <div class="actions-col">
+            <button class="action-btn" id="btn-favorite" type="button" aria-label="Add recipe to favourites">
+              <span class="icon-chip">♥️</span>
+              <span>Add to favourites</span>
+            </button>
+
+            <button class="action-btn" id="btn-like" type="button" aria-label="Like recipe">
+              <span class="icon-chip">👍</span>
+              <span>Like recipe</span>
+            </button>
+
+            <button class="action-btn" id="btn-report" type="button" aria-label="Report recipe">
+              <span class="icon-chip">🚩</span>
+              <span>Report recipe</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recipe Creator -->
+      <section class="card">
+        <h3 style="margin-top:0;">Recipe Creator</h3>
+         <div class="comment-item">
+        <div class="creator-row">
+          <!-- user icon replaced by IMAGE -->
+          <img
+            src="images/user.jpg"
+            alt="Afnan profile photo"
+            class="avatar-img">
+
+          <div>
+            <div style="font-weight:800;">Afnan Al-Shilail</div>
+            <div class="hint">Recipe creator</div>
+          </div>
+        </div>
+		</div>
+      </section>
+
+      <!-- Details -->
+      <section class="card">
+        <h3 style="margin-top:0;">Details</h3>
+         <div class="comment-item">
+        <div class="two-col">
+		
+          <div>
+            <div class="hint" style="margin-bottom:6px;"><strong>Category:</strong></div>
+            <span class="badge" style="margin-bottom:0;">Lunch</span>
+          </div>
+
+          <div>
+            <div class="hint" style="margin-bottom:6px;"><strong>Description:</strong></div>
+            <div class="hint" style="line-height:1.7;">
+              Warm, cozy pasta cups that parents trust and kids enjoy. Great for school lunchboxes and quick dinners.
+            </div>
+          </div>
+        </div>
+		</div>
+      </section>
+
+      <!-- Ingredients -->
+      <section class="card">
+        <h3 style="margin-top:0;">Ingredients</h3>
+		<div class="comment-item">
+        <ul class="lineHeight">
+          <li>Whole-wheat pasta (1 cup)</li>
+          <li>Bell pepper (1/2 cup, diced)</li>
+          <li>Sweet corn (1/3 cup)</li>
+          <li>Cheddar cheese (1/4 cup)</li>
+          <li>Greek yogurt (2 tbsp)</li>
+        </ul>
+		</div>
+      </section>
+
+      <!-- Instructions -->
+      <section class="card">
+        <h3 style="margin-top:0;">Instructions</h3> 
+		<div class="comment-item">
+        <ol class="lineHeight">
+          <li>Cook pasta until tender. Drain and let it cool slightly.</li>
+          <li>Mix pasta with veggies, cheese, and yogurt.</li>
+          <li>Spoon into muffin cups and bake for 10 minutes at 180°C.</li>
+          <li>Serve warm.</li>
+        </ol>
+		</div>
+      </section>
+
+      <!-- Video (optional in requirements) -->
+      <section class="card">
+        <h3 style="margin-top:0;">Video</h3>
+
+        <!-- Example link -->
+        <p>
+		<div class="comment-item">
+          <a class="video-link" href="https://youtu.be/8UQkmNW5jec?si=PbSU4QBJX5a9yWRU" target="_blank" >
+            Watch on Youtube
+          </a>
+        </p>
+		</div>
+
+        <!-- If NO video: replace above <p> with:
+        <p class="hint"><strong>No video for this recipe.</strong></p>
+        -->
+      </section>
+
+      <!-- Comments -->
+      <section class="card">
+        <h3 style="margin-top:0;">Comments</h3>
+
+        <!-- REAL form (ready for phase 2) -->
+        <form class="comment-row" id="comment-form" action="#" method="post">
+          <div class="field" style="margin:0;">
+            <label class="label" for="comment">Add a comment</label>
+            <input id="comment" name="comment" type="text" placeholder="Type your comment..." required>
+          </div>
+          <button class="btn btn-primary" type="submit">Add Comment</button>
+        </form>
+
+        <!-- Comment 1 -->
+        <div class="comment-item">
+          <div class="comment-meta">
+            <img src="images/user.jpg" alt="Lama profile photo" class="avatar-img">
+            <span>Lama (parent)</span>
+          </div>
+          <div class="hint">My kids loved this! Easy and colorful.</div>
+        </div>
+
+        <!-- Comment 2 -->
+        <div class="comment-item">
+          <div class="comment-meta">
+            <img src="images/user.jpg" alt="Sarah profile photo" class="avatar-img">
+            <span>Sarah</span>
+          </div>
+          <div class="hint">Tried it for lunchbox — stayed tasty even cold.</div>
+        </div>
+
+        <!-- Comment 3 -->
+        <div class="comment-item">
+          <div class="comment-meta">
+            <img src="images/user.jpg" alt="Mona profile photo" class="avatar-img">
+            <span>Mona</span>
+          </div>
+          <div class="hint">Can I swap cheddar with mozzarella? </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    © 2026 KidBites — View Recipe (Phase 1)
+  </footer>
+</body>
+</html>
