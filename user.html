@@ -1,37 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>User Page</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Page | KidBites</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- ===== HEADER ===== -->
 <header>
-    <h3>Welcome, Sara</h3>
-    <a href="index.html">Sign Out</a>
+  <div class="container header-inner">
+    <span class="brand">Welcome, Sara</span>
+
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="index.html">Log-out</a>
+    </nav>
+  </div>
 </header>
 
-<div class="container">
-    <h4>User Info</h4>
-    <p>Name: Sara Ahmed</p>
-    <p>Email: sara@email.com</p>
+<main>
+  <div class="container">
 
-    <a href="my-recipes.html" class="btn">My Recipes</a>
+    <!-- ===== MY INFORMATION ===== -->
+    <section class="card">
+      <h2>My Information</h2>
 
-    <h4>All Recipes</h4>
-    <table>
-        <tr>
-            <th>Name</th><th>Photo</th><th>Creator</th><th>Likes</th><th>Category</th>
-        </tr>
-        <tr>
-            <td><a href="view-recipe.html">Salad</a></td>
-            <td>Image</td>
-            <td>Sara</td>
-            <td>10</td>
-            <td>Healthy</td>
-        </tr>
-    </table>
-</div>
+      <div style="display:flex; gap:30px; align-items:flex-start; flex-wrap:wrap;">
+        <div>
+          <p><strong>Name:</strong> Sara Ahmed</p>
+          <p><strong>Email address:</strong> sara@email.com</p>
+        </div>
+
+        <div>
+          <img src="user-photo.jpg" alt="User Photo" width="120" style="border-radius:14px;">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MY RECIPES SUMMARY ===== -->
+    <section class="card">
+      <h2>
+        <a href="my-recipes.html">My Recipes</a>
+      </h2>
+
+      <p>Total Recipes: <strong>15</strong></p>
+      <p>Total Likes: <strong>132</strong></p>
+    </section>
+
+    <!-- ===== ALL AVAILABLE RECIPES ===== -->
+    <section class="card">
+      <h2>All Available Recipes</h2>
+
+      <!-- Filter (Phase 2) -->
+      <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+        <select>
+          <option>All Categories</option>
+          <option>Breakfast</option>
+          <option>Lunch</option>
+          <option>Dessert</option>
+        </select>
+
+        <button class="btn btn-secondary">Filter</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Recipe Name</th>
+              <th>Recipe Photo</th>
+              <th>Recipe Creator</th>
+              <th>Number of Likes</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>
+                <a href="view-recipe.html">Low-Carb Strawberry Cheesecake</a>
+              </td>
+              <td>[photo]</td>
+              <td>
+                Sara Ahmed<br>
+                [photo]
+              </td>
+              <td>40</td>
+              <td>Dessert</td>
+            </tr>
+
+            <tr>
+              <td>
+                <a href="view-recipe.html">Banana Oat Pancakes</a>
+              </td>
+              <td>[photo]</td>
+              <td>
+                Ali Hassan<br>
+                [photo]
+              </td>
+              <td>18</td>
+              <td>Breakfast</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== MY FAVOURITE RECIPES ===== -->
+    <section class="card">
+      <h2>My Favourite Recipes ♥</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Recipe Name</th>
+              <th>Recipe Photo</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>
+                <a href="view-recipe.html">High-Protein Snack</a>
+              </td>
+              <td>[photo]</td>
+              <td>
+                <a href="user.html">Remove</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  © 2026 KidBites
+</footer>
 
 </body>
 </html>
