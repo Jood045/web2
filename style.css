@@ -73,6 +73,7 @@ main {
   overflow: hidden;
 }
 
+/* decorative circle */
 .card::before {
   content: "";
   position: absolute;
@@ -204,6 +205,7 @@ tbody tr:nth-child(even) {
   background: rgba(127,163,90,0.08);
 }
 
+/* ===== LINKS INSIDE TABLE ===== */
 table a {
   color: #7fa35a;
   text-decoration: none;
@@ -214,6 +216,7 @@ table a:hover {
   color: #d8a7b1;
   text-decoration: underline;
 }
+
 
 table a:visited {
   color: #9b8f8f; 
