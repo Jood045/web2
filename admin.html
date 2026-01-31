@@ -1,30 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Page</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KidBites | Admin</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="container">
-    <h2>Admin Dashboard</h2>
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="homepage.html">KidBites</a>
+      <nav class="nav">
+        <a href="homepage.html">Home</a>
+        <a href="login.html">Logout</a>
+      </nav>
+    </div>
+  </header>
 
-    <h4>Reported Recipes</h4>
-    <table>
-        <tr><th>Recipe</th><th>User</th><th>Action</th></tr>
-        <tr>
-            <td><a href="view-recipe.html">Salad</a></td>
-            <td>Sara</td>
-            <td>
-                <button class="btn">Block</button>
-                <button class="btn-outline">Dismiss</button>
-            </td>
-        </tr>
-    </table>
+  <main>
+    <div class="container">
 
-    <h4>Blocked Users</h4>
-    <p>Sara - sara@email.com</p>
-</div>
+      <!-- WELCOME -->
+      <section class="card">
+        <h2>Welcome, Admin 👋</h2>
+        <p class="hint">
+          Admin Name: Admin User <br>
+          Email: admin@kidbites.com
+        </p>
+      </section>
+
+      <!-- REPORTED RECIPES -->
+      <section class="card">
+        <h2>Reported Recipes</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Recipe Name</th>
+                <th>Recipe Creator</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td><a href="view-recipe.html">Low-Sugar Pancakes</a></td>
+                <td>
+                  John Doe
+                </td>
+                <td>
+                  <form>
+                    <label>
+                      <input type="radio" name="action1"> Block User
+                    </label><br>
+                    <label>
+                      <input type="radio" name="action1"> Dismiss Report
+                    </label><br><br>
+                    <button class="btn btn-secondary" type="submit">
+                      Submit
+                    </button>
+                  </form>
+                </td>
+              </tr>
+
+              <tr>
+                <td><a href="view-recipe.html">Chocolate Energy Balls</a></td>
+                <td>
+                  Sarah Ahmed
+                </td>
+                <td>
+                  <form>
+                    <label>
+                      <input type="radio" name="action2"> Block User
+                    </label><br>
+                    <label>
+                      <input type="radio" name="action2"> Dismiss Report
+                    </label><br><br>
+                    <button class="btn btn-secondary" type="submit">
+                      Submit
+                    </button>
+                  </form>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- BLOCKED USERS -->
+      <section class="card">
+        <h2>Blocked Users</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Mike Brown</td>
+                <td>mike@email.com</td>
+              </tr>
+              <tr>
+                <td>Emma Ali</td>
+                <td>emma@email.com</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    © 2026 KidBites – Admin Panel
+  </footer>
 
 </body>
 </html>
