@@ -5,7 +5,7 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: Arial, sans-serif;
   color: #3a3a3a;
   background: #eef5e3;
 }
@@ -229,3 +229,4 @@ footer {
   font-size: 14px;
   color: #8a8a8a;
 }
+
