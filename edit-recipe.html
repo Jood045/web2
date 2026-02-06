@@ -1,76 +1,306 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Recipe</title>
+    <title>Edit Recipe - Lunchbox Legends</title>
     <link rel="stylesheet" href="style.css">
-	<script src="js/script.js"></script>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+       <div class="container header-inner">
+      <a class="brand" href="index.html">
+  <img src="images/logo.png" alt="KidBites Logo" class="logo">
+</a>
 
-<div class="container">
-    <h2>Edit Recipe</h2>
-
-    <form action="my-recipes.html">
-
-    <!-- Name -->
-    Name:
-    <input type="text" value="Salad" required>
-    <br><br>
-
-    <!-- Category -->
-    Category:
-    <input type="text" value="Healthy" required>
-    <br><br>
-
-    <!-- Description -->
-    Description:
-    <textarea required>Fresh salad</textarea>
-    <br><br>
-
-    <!-- Ingredients -->
-    <h4>Ingredients:</h4>
-
-    <div id="ingredients-container">
-        Ingredient 1:
-        Name: <input type="text" value="Lettuce">
-        Quantity: <input type="text" value="1 cup">
-        <br><br>
-
-        Ingredient 2:
-        Name: <input type="text" value="Tomato">
-        Quantity: <input type="text" value="2 pieces">
-        <br><br>
+    <nav class="nav">
+                <a href="user.html">Home</a>
+                <a href="my-recipes.html">My Recipes</a>
+                <a href="index.html">Sign Out</a>
+            </nav>
     </div>
+</header>
 
-    <button type="button" onclick="addIngredient()">
-        + Add another ingredient
-    </button>
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="card">
+                <h2>Edit Recipe</h2>
 
-    <br><br>
+                <form id="editRecipeForm" onsubmit="return updateRecipe(event)">
 
-    <!-- Instructions -->
-    <h4>Instructions:</h4>
+                    <label>Recipe Name:</label>
+                    <input type="text" id="recipeName" required><br><br>
 
-    <div id="steps-container">
-        Step 1:
-        <input type="text" value="Chop vegetables">
+                    <label>Category:</label>
+                    <input type="text" id="recipeCategory" required><br><br>
+
+                    <label>Description:</label>
+                    <textarea id="recipeDescription" required></textarea><br><br>
+
+                    <label>Recipe Image:</label>
+                    <div>
+                        <img id="currentImage" style="max-width: 200px; max-height: 200px; margin-bottom: 10px; border-radius: 10px; display: none;">
+                    </div>
+                    <input type="file" id="recipeImage" accept="image/*" onchange="previewImage(event)">
+                    <p style="font-size: 12px; color: #666;">Leave empty to keep current image</p>
+                    <br>
+
+                    <h4>Ingredients:</h4>
+                    <div id="ingredients-container">
+                        <!-- Ingredients will be loaded here dynamically -->
+                    </div>
+                    <button type="button" onclick="addIngredient()" class="btn btn-secondary">+ Add Another Ingredient</button>
+                    <br><br>
+
+                    <h4>Instructions:</h4>
+                    <div id="steps-container">
+                        <!-- Steps will be loaded here dynamically -->
+                    </div>
+                    <button type="button" onclick="addStep()" class="btn btn-secondary">+ Add Another Step</button>
+                    <br><br>
+
+                    <label>Video Link (optional):</label>
+                    <input type="text" id="recipeVideo" placeholder="https://youtube.com/..."><br><br>
+
+                    <button type="submit" class="btn btn-primary">Update Recipe</button>
+                    <a href="my-recipes.html" class="btn" style="background:#999; color:white; text-decoration:none; display:inline-block; margin-left:10px;">Cancel</a>
+
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Lunchbox Legends. Made with ❤️ for healthy kids!</p>
+    </footer>
+
+<script>
+let ingredientCount = 0;
+let stepCount = 0;
+let currentRecipeId = null;
+let currentImageData = '';
+let newImageData = '';
+
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            newImageData = e.target.result;
+            const preview = document.getElementById('currentImage');
+            preview.src = newImageData;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Default recipes data
+const defaultRecipes = {
+    'default-1': {
+        id: 'default-1',
+        name: 'Banana Oat Pancakes',
+        category: 'Breakfast',
+        description: 'Healthy and delicious pancakes made with banana and oats',
+        image: 'images/banana-pancakes.jpg',
+        ingredients: ['1 ripe banana', '1 egg', '1/2 cup oats', '1/2 tsp cinnamon (optional)'],
+        steps: ['Mash the banana and mix with the egg', 'Add oats and cinnamon', 'Cook small pancakes on a non-stick pan'],
+        video: 'https://youtu.be/Stpe90s2pD4?si=Ky3jBuOxqy9zc5yd',
+        likes: 45
+    },
+    'default-2': {
+        id: 'default-2',
+        name: 'Apple Peanut Butter Sandwich Bites',
+        category: 'Dessert',
+        description: 'Quick and healthy apple snack',
+        image: 'images/apple-sandwich.jpg',
+        ingredients: ['1 apple (sliced)', '2 tbsp peanut butter'],
+        steps: ['Spread peanut butter between two apple slices', 'Serve immediately'],
+        video: 'https://youtu.be/ANKtVORw05U?si=DDzevPe9DAggxJqQ',
+        likes: 32
+    }
+};
+
+// Load recipe when page loads
+window.addEventListener('DOMContentLoaded', function() {
+    loadRecipeForEditing();
+});
+
+function loadRecipeForEditing() {
+    // Get recipe ID from URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    currentRecipeId = urlParams.get('id');
+    
+    if (!currentRecipeId) {
+        alert('No recipe selected for editing');
+        window.location.href = 'my-recipes.html';
+        return;
+    }
+    
+    let recipe;
+    
+    // Check if it's a default recipe
+    if (currentRecipeId.startsWith('default-')) {
+        recipe = defaultRecipes[currentRecipeId];
+    } else {
+        // Get from localStorage
+        const recipes = JSON.parse(localStorage.getItem('userRecipes') || '[]');
+        recipe = recipes.find(r => r.id == currentRecipeId);
+    }
+    
+    if (!recipe) {
+        alert('Recipe not found');
+        window.location.href = 'my-recipes.html';
+        return;
+    }
+    
+    // Populate form fields
+    document.getElementById('recipeName').value = recipe.name;
+    document.getElementById('recipeCategory').value = recipe.category || '';
+    document.getElementById('recipeDescription').value = recipe.description || '';
+    document.getElementById('recipeVideo').value = recipe.video || '';
+    
+    // Display current image
+    currentImageData = recipe.image || '';
+    if (currentImageData) {
+        const currentImage = document.getElementById('currentImage');
+        currentImage.src = currentImageData;
+        currentImage.style.display = 'block';
+    }
+    
+    // Load ingredients
+    const ingredientsContainer = document.getElementById('ingredients-container');
+    ingredientsContainer.innerHTML = '';
+    recipe.ingredients.forEach((ingredient, index) => {
+        ingredientCount++;
+        const ingredientDiv = document.createElement('div');
+        ingredientDiv.className = 'ingredient-item';
+        ingredientDiv.innerHTML = `
+            <input type="text" class="ingredient-input" value="${ingredient}" required>
+            <button type="button" onclick="this.parentElement.remove()" style="background:#d8a7b1; color:white; padding:5px 10px; border:none; border-radius:5px; cursor:pointer; margin-left:10px;">Remove</button>
+            <br><br>
+        `;
+        ingredientsContainer.appendChild(ingredientDiv);
+    });
+    
+    // Load steps
+    const stepsContainer = document.getElementById('steps-container');
+    stepsContainer.innerHTML = '';
+    recipe.steps.forEach((step, index) => {
+        stepCount++;
+        const stepDiv = document.createElement('div');
+        stepDiv.className = 'step-item';
+        stepDiv.innerHTML = `
+            <input type="text" class="step-input" value="${step}" required>
+            <button type="button" onclick="this.parentElement.remove()" style="background:#d8a7b1; color:white; padding:5px 10px; border:none; border-radius:5px; cursor:pointer; margin-left:10px;">Remove</button>
+            <br><br>
+        `;
+        stepsContainer.appendChild(stepDiv);
+    });
+}
+
+function addIngredient() {
+    ingredientCount++;
+    const container = document.getElementById('ingredients-container');
+    const newIngredient = document.createElement('div');
+    newIngredient.className = 'ingredient-item';
+    newIngredient.innerHTML = `
+        <input type="text" class="ingredient-input" placeholder="e.g., 1 cup flour" required>
+        <button type="button" onclick="this.parentElement.remove()" style="background:#d8a7b1; color:white; padding:5px 10px; border:none; border-radius:5px; cursor:pointer; margin-left:10px;">Remove</button>
         <br><br>
+    `;
+    container.appendChild(newIngredient);
+}
 
-        Step 2:
-        <input type="text" value="Mix all together">
+function addStep() {
+    stepCount++;
+    const container = document.getElementById('steps-container');
+    const newStep = document.createElement('div');
+    newStep.className = 'step-item';
+    newStep.innerHTML = `
+        <input type="text" class="step-input" placeholder="Describe this step" required>
+        <button type="button" onclick="this.parentElement.remove()" style="background:#d8a7b1; color:white; padding:5px 10px; border:none; border-radius:5px; cursor:pointer; margin-left:10px;">Remove</button>
         <br><br>
-    </div>
+    `;
+    container.appendChild(newStep);
+}
 
-    <button type="button" onclick="addStep()">
-        + Add another step
-    </button>
-
-    <br><br>
-
-    <button class="btn">Update Recipe</button>
-
-</form>
-</div>
+function updateRecipe(event) {
+    event.preventDefault();
+    
+    // Get form values
+    const name = document.getElementById('recipeName').value;
+    const category = document.getElementById('recipeCategory').value;
+    const description = document.getElementById('recipeDescription').value;
+    const video = document.getElementById('recipeVideo').value;
+    
+    // Use new image if uploaded, otherwise keep current image
+    const imageData = newImageData || currentImageData;
+    
+    // Get all ingredients
+    const ingredientInputs = document.querySelectorAll('.ingredient-input');
+    const ingredients = Array.from(ingredientInputs).map(input => input.value);
+    
+    // Get all steps
+    const stepInputs = document.querySelectorAll('.step-input');
+    const steps = Array.from(stepInputs).map(input => input.value);
+    
+    // Check if it's a default recipe
+    if (currentRecipeId.startsWith('default-')) {
+        // Convert default recipe to user recipe
+        const updatedRecipe = {
+            id: Date.now(), // New ID for converted recipe
+            originalId: currentRecipeId, // PRESERVE THE ORIGINAL ID for linking
+            name: name,
+            category: category,
+            description: description,
+            image: imageData,
+            ingredients: ingredients,
+            steps: steps,
+            video: video,
+            likes: defaultRecipes[currentRecipeId].likes
+        };
+        
+        // Add to user recipes
+        let recipes = JSON.parse(localStorage.getItem('userRecipes') || '[]');
+        recipes.push(updatedRecipe);
+        localStorage.setItem('userRecipes', JSON.stringify(recipes));
+        
+        // Mark default recipe as edited (optional - you could remove it from display)
+        let editedDefaults = JSON.parse(localStorage.getItem('editedDefaultRecipes') || '[]');
+        editedDefaults.push(currentRecipeId);
+        localStorage.setItem('editedDefaultRecipes', JSON.stringify(editedDefaults));
+        
+    } else {
+        // Update user recipe
+        let recipes = JSON.parse(localStorage.getItem('userRecipes') || '[]');
+        const recipeIndex = recipes.findIndex(r => r.id == currentRecipeId);
+        
+        if (recipeIndex !== -1) {
+            recipes[recipeIndex] = {
+                id: currentRecipeId,
+                originalId: recipes[recipeIndex].originalId, // PRESERVE originalId if it exists
+                name: name,
+                category: category,
+                description: description,
+                image: imageData,
+                ingredients: ingredients,
+                steps: steps,
+                video: video,
+                likes: recipes[recipeIndex].likes || 0
+            };
+            
+            localStorage.setItem('userRecipes', JSON.stringify(recipes));
+        }
+    }
+    
+    // Redirect to my-recipes page
+    window.location.href = 'my-recipes.html';
+    
+    return false;
+}
+</script>
 
 </body>
 </html>

@@ -1,48 +1,170 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Recipe</title>
+    <title>Add Recipe - Lunchbox Legends</title>
     <link rel="stylesheet" href="style.css">
-	<script src="js/script.js"></script>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+       <div class="container header-inner">
+      <a class="brand" href="index.html">
+  <img src="images/logo.png" alt="KidBites Logo" class="logo">
+</a>
 
-<div class="container">
-    <h2>Add Recipe</h2>
+    <nav class="nav">
+                <a href="user.html">Home</a>
+                <a href="my-recipes.html">My Recipes</a>
+                <a href="index.html">Sign Out</a>
+            </nav>
+    </div>
+</header>
 
-    <form action="my-recipes.html">
-        <input placeholder="Recipe Name"><br><br>
-        <input placeholder="Category"><br><br>
-        <textarea placeholder="Description"></textarea><br><br>
-        <input type="file"><br><br>
-<h4>Ingredients:</h4>
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="card">
+                <h2>Add New Recipe</h2>
 
-<div id="ingredients-container">
-    Ingredient 1:
-    Name: <input type="text" required>
-    Quantity: <input type="text" required>
-    <br><br>
-</div>
+                <form id="recipeForm" onsubmit="return saveRecipe(event)">
+                    <label>Recipe Name:</label>
+                    <input id="recipeName" placeholder="Enter recipe name" required><br><br>
+                    
+                    <label>Category:</label>
+                    <input id="recipeCategory" placeholder="e.g., Breakfast, Lunch, Snack, Dessert"><br><br>
+                    
+                    <label>Description:</label>
+                    <textarea id="recipeDescription" placeholder="Brief description of the recipe"></textarea><br><br>
+                    
+                    <label>Recipe Image:</label>
+                    <input id="recipeImage" type="file" accept="image/*" onchange="previewImage(event)"><br>
+                    <img id="imagePreview" style="max-width: 200px; max-height: 200px; margin-top: 10px; display: none; border-radius: 10px;"><br><br>
+                    
+                    <h4>Ingredients:</h4>
+                    <div id="ingredients-container">
+                        <div class="ingredient-item">
+                            <input type="text" class="ingredient-input" placeholder="e.g., 1 cup flour" required>
+                            <br><br>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addIngredient()" class="btn btn-secondary">+ Add Another Ingredient</button>
+                    <br><br>
+                    
+                    <h4>Instructions:</h4>
+                    <div id="steps-container">
+                        <div class="step-item">
+                            <input type="text" class="step-input" placeholder="Describe this step" required>
+                            <br><br>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addStep()" class="btn btn-secondary">+ Add Another Step</button>
+                    <br><br>
+                    
+                    <label>Video Link (optional):</label>
+                    <input id="recipeVideo" placeholder="https://youtube.com/..."><br><br>
 
-<button type="button" onclick="addIngredient()">
-    + Add another ingredient
-</button>
-<h4>Instructions:</h4>
+                    <button type="submit" class="btn btn-primary">Add Recipe</button>
+                    <a href="my-recipes.html" class="btn" style="background:#999; color:white; text-decoration:none; display:inline-block; margin-left:10px;">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </main>
 
-<div id="steps-container">
-    Step 1:
-    <input type="text" required>
-    <br><br>
-</div>
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Lunchbox Legends. Made with ❤️ for healthy kids!</p>
+    </footer>
 
-<button type="button" onclick="addStep()">
-    + Add another step
-</button>
-        <input placeholder="Video link (optional)"><br><br>
+<script>
+let ingredientCount = 1;
+let stepCount = 1;
+let imageBase64 = '';
 
-        <button class="btn">Add</button>
-    </form>
-</div>
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imageBase64 = e.target.result;
+            const preview = document.getElementById('imagePreview');
+            preview.src = imageBase64;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function addIngredient() {
+    ingredientCount++;
+    const container = document.getElementById('ingredients-container');
+    const newIngredient = document.createElement('div');
+    newIngredient.className = 'ingredient-item';
+    newIngredient.innerHTML = `
+        <input type="text" class="ingredient-input" placeholder="e.g., 1 cup flour" required>
+        <button type="button" onclick="this.parentElement.remove()" style="background:#d8a7b1; color:white; padding:5px 10px; border:none; border-radius:5px; cursor:pointer; margin-left:10px;">Remove</button>
+        <br><br>
+    `;
+    container.appendChild(newIngredient);
+}
+
+function addStep() {
+    stepCount++;
+    const container = document.getElementById('steps-container');
+    const newStep = document.createElement('div');
+    newStep.className = 'step-item';
+    newStep.innerHTML = `
+        <input type="text" class="step-input" placeholder="Describe this step" required>
+        <button type="button" onclick="this.parentElement.remove()" style="background:#d8a7b1; color:white; padding:5px 10px; border:none; border-radius:5px; cursor:pointer; margin-left:10px;">Remove</button>
+        <br><br>
+    `;
+    container.appendChild(newStep);
+}
+
+function saveRecipe(event) {
+    event.preventDefault();
+    
+    // Get form values
+    const name = document.getElementById('recipeName').value;
+    const category = document.getElementById('recipeCategory').value;
+    const description = document.getElementById('recipeDescription').value;
+    const video = document.getElementById('recipeVideo').value;
+    
+    // Get all ingredients
+    const ingredientInputs = document.querySelectorAll('.ingredient-input');
+    const ingredients = Array.from(ingredientInputs).map(input => input.value);
+    
+    // Get all steps
+    const stepInputs = document.querySelectorAll('.step-input');
+    const steps = Array.from(stepInputs).map(input => input.value);
+    
+    // Create recipe object with base64 image
+    const recipe = {
+        id: Date.now(),
+        name: name,
+        category: category,
+        description: description,
+        image: imageBase64 || 'images/default-recipe.jpg',
+        ingredients: ingredients,
+        steps: steps,
+        video: video,
+        likes: 0
+    };
+    
+    // Get existing recipes from localStorage
+    let recipes = JSON.parse(localStorage.getItem('userRecipes') || '[]');
+    
+    // Add new recipe
+    recipes.push(recipe);
+    
+    // Save back to localStorage
+    localStorage.setItem('userRecipes', JSON.stringify(recipes));
+    
+    // Redirect to my-recipes page
+    window.location.href = 'my-recipes.html';
+    
+    return false;
+}
+</script>
 
 </body>
 </html>
