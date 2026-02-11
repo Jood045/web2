@@ -237,3 +237,39 @@ footer {
   max-height: 150px;   
   width: auto;
 }
+
+/* Admin action column fix */
+td form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;  
+}
+
+.radio-option {
+  display: inline-flex;      
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;       
+  font-weight: 600;
+}
+
+.btn-sm {
+  width: fit-content;
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+
+
+.creator-cell{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.creator-img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  object-fit:cover;
+}

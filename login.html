@@ -33,32 +33,39 @@
           Please enter your email and password.
         </p>
 
-        <form>
-          <div class="field">
-            <label>Email</label>
-            <input type="email" placeholder="example@email.com" required>
-          </div>
+        <form method="get">
 
-          <div class="field">
-            <label>Password</label>
-            <input type="password" placeholder="********" required>
-          </div>
+  <div class="field">
+    <label>Email</label>
+    <input type="email" required>
+  </div>
 
-          <div class="btn-row" style="justify-content:center; margin-top:16px;">
-            <button  type="button"
-              class="btn btn-secondary"
-              onclick="window.location.href='user.html'">
-              Login as User
-            </button>
-            <button
-             type="button"
-              class="btn btn-secondary"
-              onclick="window.location.href='admin.html'">
-              Login as Admin
-            </button>
+  <div class="field">
+    <label>Password</label>
+    <input type="password" required>
+  </div>
 
-          </div>
-        </form>
+  <div class="btn-row" style="justify-content:center; margin-top:16px;">
+
+    <!-- User -->
+    <button
+      type="submit"
+      formaction="user.html"
+      class="btn btn-primary">
+      Login as User
+    </button>
+
+    <!-- Admin -->
+    <button
+      type="submit"
+      formaction="admin.html"
+      class="btn btn-secondary">
+      Login as Admin
+    </button>
+
+  </div>
+</form>
+
 
       </section>
 
