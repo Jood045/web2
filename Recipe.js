@@ -58,21 +58,75 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 function addIngredient() {
-    ingCount++;
-    const container = document.getElementById('ingredientsContainer');
-    const div = document.createElement('div');
-    div.innerHTML = 'Ingredient ' + ingCount + ': <input type="text" name="ingredient[]" placeholder="e.g., 1 cup flour">'
-        + '<button type="button" onclick="this.parentElement.remove()" style="background:#d8a7b1;color:white;border:none;border-radius:5px;padding:4px 10px;cursor:pointer;margin-left:8px;">Remove</button>'
-        + '<br><br>';
+
+    let container = document.getElementById("ingredientsContainer");
+    let count = container.children.length + 1;
+
+    let div = document.createElement("div");
+
+    div.innerHTML = `
+        Ingredient ${count}: 
+        <input type="text" name="ingredient[]" placeholder="e.g., 1 cup flour" required>
+        <button type="button" onclick="removeItem(this)">Remove</button>
+        <br><br>
+    `;
+
     container.appendChild(div);
 }
 
+
+
 function addStep() {
-    stepCount++;
-    const container = document.getElementById('stepsContainer');
-    const div = document.createElement('div');
-    div.innerHTML = 'Step ' + stepCount + ': <input type="text" name="step[]" placeholder="Describe this step">'
-        + '<button type="button" onclick="this.parentElement.remove()" style="background:#d8a7b1;color:white;border:none;border-radius:5px;padding:4px 10px;cursor:pointer;margin-left:8px;">Remove</button>'
-        + '<br><br>';
+
+    let container = document.getElementById("stepsContainer");
+    let count = container.children.length + 1;
+
+    let div = document.createElement("div");
+
+    div.innerHTML = `
+        Step ${count}: 
+        <input type="text" name="step[]" placeholder="Describe this step" required>
+        <button type="button" onclick="removeItem(this)">Remove</button>
+        <br><br>
+    `;
+
     container.appendChild(div);
 }
+
+function removeItem(button) {
+    let div = button.parentElement;
+    div.remove();
+
+    renumberIngredients();
+    renumberSteps();
+}
+
+function renumberIngredients() {
+    let container = document.getElementById("ingredientsContainer");
+    let items = container.children;
+
+    for (let i = 0; i < items.length; i++) {
+        items[i].innerHTML = `
+            Ingredient ${i + 1}: 
+            <input type="text" name="ingredient[]" placeholder="e.g., 1 cup flour" required>
+            <button type="button" onclick="removeItem(this)">Remove</button>
+            <br><br>
+        `;
+    }
+}
+
+function renumberSteps() {
+    let container = document.getElementById("stepsContainer");
+    let items = container.children;
+
+    for (let i = 0; i < items.length; i++) {
+        items[i].innerHTML = `
+            Step ${i + 1}: 
+            <input type="text" name="step[]" placeholder="Describe this step" required>
+            <button type="button" onclick="removeItem(this)">Remove</button>
+            <br><br>
+        `;
+    }
+}
+
+
