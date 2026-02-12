@@ -5,32 +5,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-       <div class="container header-inner">
-      <a class="brand" href="index.html">
-  <img src="images/logo.png" alt="KidBites Logo" class="logo">
-</a>
 
-    <nav class="nav">
-                <a href="user.html">User page</a>
+    <header>
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <img src="images/logo.png" alt="KidBites Logo" class="logo">
+            </a>
+            <nav class="nav">
+                <a href="user.html">Home</a>
                 <a href="my-recipes.html">My Recipes</a>
                 <a href="index.html">Sign Out</a>
             </nav>
-    </div>
-</header>
+        </div>
+    </header>
 
-    <!-- Main Content -->
     <main>
         <div class="container">
             <div class="card">
                 <div class="page-header">
                     <h2>My Recipes</h2>
-                    <div style="text-align: right; margin-bottom: 20px;">
-                    <a href="add-recipe.html" class="btn btn-primary">+ Add New Recipe</a>
+                    <div style="text-align:right; margin-bottom:20px;">
+                        <a href="add-recipe.html" class="btn btn-primary">+ Add New Recipe</a>
+                    </div>
                 </div>
 
-                <!-- Recipes Table -->
                 <div class="table-wrap">
                     <table>
                         <thead>
@@ -44,17 +42,17 @@
                                 <th>Delete</th>
                             </tr>
                         </thead>
-                        <tbody id="recipesTableBody">
-                            <!-- Recipe 1: Banana Oat Pancakes -->
-                            <tr data-recipe-id="default-1">
+                        <tbody>
+
+                            <tr>
                                 <td>
                                     <a href="view-recipe2.html">
-                                        <img src="images/banana-pancakes.jpg" alt="Banana Oat Pancakes" style="width:80px; height:60px; border-radius:10px; margin-right:10px; vertical-align:middle;">
+                                        <img src="images/banana-pancakes.jpg" alt="Banana Oat Pancakes" style="width:80px;height:60px;border-radius:10px;margin-right:10px;vertical-align:middle;">
                                         Banana Oat Pancakes
                                     </a>
                                 </td>
                                 <td>
-                                    <ul style="margin:0; padding-left:20px; font-size:14px;">
+                                    <ul style="margin:0;padding-left:20px;font-size:14px;">
                                         <li>1 ripe banana</li>
                                         <li>1 egg</li>
                                         <li>1/2 cup oats</li>
@@ -62,49 +60,43 @@
                                     </ul>
                                 </td>
                                 <td>
-                                    <ol style="margin:0; padding-left:20px; font-size:14px;">
+                                    <ol style="margin:0;padding-left:20px;font-size:14px;">
                                         <li>Mash the banana and mix with the egg</li>
                                         <li>Add oats and cinnamon</li>
                                         <li>Cook small pancakes on a non-stick pan</li>
                                     </ol>
                                 </td>
-                                <td>
-                                    <a href="https://youtu.be/Stpe90s2pD4?si=Ky3jBuOxqy9zc5yd" target="_blank">🎥 Watch Video</a>
-                                </td>
+                                <td><a href="https://youtu.be/Stpe90s2pD4?si=Ky3jBuOxqy9zc5yd" target="_blank">🎥 Watch Video</a></td>
                                 <td>45 ❤️</td>
-                                <td><a href="edit-recipe.html?id=default-1" class="btn btn-secondary">Edit</a></td>
-                                <td><button onclick="deleteRecipe('default-1')" class="btn" style="background:#d8a7b1; color:white;">Delete</button></td>
+                                <td><a href="edit-recipe.html?id=1" class="btn btn-secondary">Edit</a></td>
+                                <td><button class="btn" style="background:#d8a7b1;color:white;">Delete</button></td>
                             </tr>
 
-                            <!-- Recipe 2: Apple Peanut Butter Sandwich Bites -->
-                            <tr data-recipe-id="default-4">
+                            <tr>
                                 <td>
                                     <a href="view-recipe4.html">
-                                        <img src="images/apple-sandwich.jpg" alt="Apple Peanut Butter Sandwich Bites" style="width:80px; height:60px; border-radius:10px; margin-right:10px; vertical-align:middle;">
+                                        <img src="images/apple-sandwich.jpg" alt="Apple Peanut Butter Sandwich Bites" style="width:80px;height:60px;border-radius:10px;margin-right:10px;vertical-align:middle;">
                                         Apple Peanut Butter Sandwich Bites
                                     </a>
                                 </td>
                                 <td>
-                                    <ul style="margin:0; padding-left:20px; font-size:14px;">
+                                    <ul style="margin:0;padding-left:20px;font-size:14px;">
                                         <li>1 apple (sliced)</li>
                                         <li>2 tbsp peanut butter</li>
                                     </ul>
                                 </td>
                                 <td>
-                                    <ol style="margin:0; padding-left:20px; font-size:14px;">
+                                    <ol style="margin:0;padding-left:20px;font-size:14px;">
                                         <li>Spread peanut butter between two apple slices</li>
                                         <li>Serve immediately</li>
                                     </ol>
                                 </td>
-                                <td>
-                                    <a href="https://youtu.be/ANKtVORw05U?si=DDzevPe9DAggxJqQ" target="_blank">🎥 Watch Video</a>
-                                </td>
+                                <td><a href="https://youtu.be/ANKtVORw05U?si=DDzevPe9DAggxJqQ" target="_blank">🎥 Watch Video</a></td>
                                 <td>32 ❤️</td>
-                                <td><a href="edit-recipe.html?id=default-2" class="btn btn-secondary">Edit</a></td>
-                                <td><button onclick="deleteRecipe('default-2')" class="btn" style="background:#d8a7b1; color:white;">Delete</button></td>
+                                <td><a href="edit-recipe.html?id=2" class="btn btn-secondary">Edit</a></td>
+                                <td><button class="btn" style="background:#d8a7b1;color:white;">Delete</button></td>
                             </tr>
 
-                            <!-- User-added recipes will be inserted here -->
                         </tbody>
                     </table>
                 </div>
@@ -112,142 +104,9 @@
         </div>
     </main>
 
-    
-
-<script>
-// Load user recipes from localStorage when page loads
-window.addEventListener('DOMContentLoaded', function() {
-    hideDeletedDefaultRecipes();
-    hideEditedDefaultRecipes();
-    loadUserRecipes();
-});
-
-function hideDeletedDefaultRecipes() {
-    const deletedDefaults = JSON.parse(localStorage.getItem('deletedDefaultRecipes') || '[]');
-    deletedDefaults.forEach(recipeId => {
-        const row = document.querySelector(`tr[data-recipe-id="${recipeId}"]`);
-        if (row) {
-            row.remove();
-        }
-    });
-}
-
-function hideEditedDefaultRecipes() {
-    const editedDefaults = JSON.parse(localStorage.getItem('editedDefaultRecipes') || '[]');
-    editedDefaults.forEach(recipeId => {
-        const row = document.querySelector(`tr[data-recipe-id="${recipeId}"]`);
-        if (row) {
-            row.remove();
-        }
-    });
-}
-
-function loadUserRecipes() {
-    const recipes = JSON.parse(localStorage.getItem('userRecipes') || '[]');
-    const tbody = document.getElementById('recipesTableBody');
-    
-    // Add each user recipe to the table
-    recipes.forEach(recipe => {
-        const row = createRecipeRow(recipe);
-        tbody.appendChild(row);
-    });
-}
-
-function createRecipeRow(recipe) {
-    const tr = document.createElement('tr');
-    tr.setAttribute('data-recipe-id', recipe.id);
-    
-    // Determine the recipe detail link
-    // If this recipe originated from default-2 (Apple Peanut Butter), always link to view-recipe4.html
-    let recipeLink = '#';
-    if (recipe.originalId === 'default-2') {
-        recipeLink = 'view-recipe4.html';
-    } else if (recipe.originalId === 'default-1') {
-        recipeLink = 'view-recipe2.html';
-    } else {
-        // For brand new user recipes, create a generic link or no link
-        recipeLink = 'view-user-recipe.html?id=' + recipe.id;
-    }
-    
-    // Create ingredients list
-    const ingredientsList = recipe.ingredients.map(ing => `<li>${ing}</li>`).join('');
-    
-    // Create steps list
-    const stepsList = recipe.steps.map(step => `<li>${step}</li>`).join('');
-    
-    // Create video link
-    const videoLink = recipe.video ? 
-        `<a href="${recipe.video}" target="_blank">🎥 Watch Video</a>` : 
-        'No video';
-    
-    tr.innerHTML = `
-        <td>
-            <a href="${recipeLink}">
-                <img src="${recipe.image}" alt="${recipe.name}" style="width:80px; height:60px; border-radius:10px; margin-right:10px; vertical-align:middle;" onerror="this.src='images/default-recipe.jpg'">
-                ${recipe.name}
-            </a>
-        </td>
-        <td>
-            <ul style="margin:0; padding-left:20px; font-size:14px;">
-                ${ingredientsList}
-            </ul>
-        </td>
-        <td>
-            <ol style="margin:0; padding-left:20px; font-size:14px;">
-                ${stepsList}
-            </ol>
-        </td>
-        <td>${videoLink}</td>
-        <td>${recipe.likes} ❤️</td>
-        <td><a href="edit-recipe.html?id=${recipe.id}" class="btn btn-secondary">Edit</a></td>
-        <td><button onclick="deleteRecipe(${recipe.id})" class="btn" style="background:#d8a7b1; color:white;">Delete</button></td>
-    `;
-    
-    return tr;
-}
-
-function deleteRecipe(recipeId) {
-    if (confirm('Are you sure you want to delete this recipe? This action cannot be undone.')) {
-        // If it's a default recipe
-        if (typeof recipeId === 'string' && recipeId.startsWith('default-')) {
-            // Remove from DOM
-            const row = document.querySelector(`tr[data-recipe-id="${recipeId}"]`);
-            if (row) {
-                row.remove();
-            }
-            
-            // Save to deletedDefaultRecipes so it stays deleted
-            let deletedDefaults = JSON.parse(localStorage.getItem('deletedDefaultRecipes') || '[]');
-            if (!deletedDefaults.includes(recipeId)) {
-                deletedDefaults.push(recipeId);
-                localStorage.setItem('deletedDefaultRecipes', JSON.stringify(deletedDefaults));
-            }
-        } else {
-            // For user recipes - ACTUALLY DELETE FROM LOCALSTORAGE
-            let recipes = JSON.parse(localStorage.getItem('userRecipes') || '[]');
-            
-            // Filter out the deleted recipe
-            recipes = recipes.filter(recipe => recipe.id != recipeId);
-            
-            // CRITICAL: Save the updated array back to localStorage
-            localStorage.setItem('userRecipes', JSON.stringify(recipes));
-            
-            // Remove from DOM
-            const row = document.querySelector(`tr[data-recipe-id="${recipeId}"]`);
-            if (row) {
-                row.remove();
-            }
-        }
-        
-        alert('Recipe deleted successfully!');
-    }
-}
-</script>
-
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  © 2026 KidBites
-</footer>
+    <footer>
+        <p>    © 2026 KidBites </p>
+    </footer>
 
 </body>
 </html>
