@@ -33,7 +33,7 @@ if ($result->num_rows > 0) {
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // صورة افتراضية
-$photoName = "default.png";
+$photoName = "user.jpg";
 
 // إذا المستخدم رفع صورة
 if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
