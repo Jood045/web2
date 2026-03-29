@@ -120,7 +120,7 @@ Email: <?= $user['emailAddress'] ?>
 
 <!-- ===== SUMMARY ===== -->
 <section class="card">
-<h2><a href="my-recipes.html">My Recipes</a></h2>
+<h2><a href="my-recipes.php">My Recipes</a></h2>
 
 <p>Total Recipes: <strong><?= $totalRecipes ?></strong></p>
 <p>Total Likes: <strong><?= $totalLikes ?></strong></p>
