@@ -93,7 +93,7 @@ $favourites = $conn->query($favQuery);
 <nav class="nav">
 <a href="user.php">User page</a>
 <a href="my-recipes.php">My Recipes</a>
-<a href="logout.php">Sign Out</a>
+<a href="index.php">Sign Out</a>
 </nav>
 </div>
 </header>
