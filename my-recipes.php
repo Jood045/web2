@@ -19,7 +19,8 @@ $userID = $_SESSION['userID'];
 // =====================
 // 2. Database Connection
 // =====================
-$conn = new mysqli("localhost", "root", "", "kidbites");
+
+include "db.php";
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
