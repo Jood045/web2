@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KidBites | Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="index.php">
+        <img src="images/logo.png" alt="KidBites Logo" class="logo">
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <section class="card" style="text-align:center;">
+        <h2>Welcome to KidBites 🍎</h2>
+        <p class="hint">
+          A healthy recipe sharing platform for kids and families.
+        </p>
+
+        <div class="btn-row" style="justify-content:center; margin-top: 18px;">
+          <a class="btn btn-primary" href="login.php" style="text-decoration:none;">
+            Login
+          </a>
+
+          <a class="btn btn-secondary" href="signup.php" style="text-decoration:none;">
+            Sign Up
+          </a>
+        </div>
+
+        <p class="hint" style="text-align:center; margin-top: 10px;">
+          If you are a new user, please click Sign Up.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    © 2026 KidBites
+  </footer>
+
+</body>
+</html>
