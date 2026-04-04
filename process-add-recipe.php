@@ -35,23 +35,28 @@ if (!$stmt->execute()) {
 $recipeID = $conn->insert_id;
 $stmt->close();
 
-// ===== Handle Photo Upload — named with recipeID =====
-$photoFileName = '';
-if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
-    $originalName  = basename($_FILES['photo']['name']);
-    $photoFileName = $recipeID . '_' . $originalName;
-    $destination   = "images/" . $photoFileName;
-    move_uploaded_file($_FILES['photo']['tmp_name'], $destination);
-}
-
 // ===== Handle Video Upload — named with recipeID (optional) =====
 $videoFilePath = '';
+
 if (isset($_FILES['video']) && $_FILES['video']['error'] == 0) {
     $originalVideoName = basename($_FILES['video']['name']);
-    $videoFilePath     = $recipeID . '_' . $originalVideoName;
-    $destination       = "videos/" . $videoFilePath;
-    move_uploaded_file($_FILES['video']['tmp_name'], $destination);
+    $videoExt = pathinfo($originalVideoName, PATHINFO_EXTENSION);
+
+    $videoFilePath = "recipe_video_" . $recipeID . "." . $videoExt;
+    $destination = "videos/" . $videoFilePath;
+
+    if (!is_dir("videos")) {
+        mkdir("videos", 0777, true);
+    }
+
+    if (!move_uploaded_file($_FILES['video']['tmp_name'], $destination)) {
+        die("Failed to upload video.");
+    }
 }
+$stmtUpdate = $conn->prepare(
+    "UPDATE recipe SET photoFileName = ?, videoFilePath = ? WHERE id = ?"
+);
+$stmtUpdate->bind_param("ssi", $photoFileName, $videoFilePath, $recipeID);
 
 // ===== Update recipe row with the actual file names =====
 $stmtUpdate = $conn->prepare(
