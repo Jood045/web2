@@ -20,30 +20,13 @@ if (empty($name) || empty($categoryID) || empty($description)) {
     exit();
 }
 
-// ===== Handle Photo Upload =====
-$photoFileName = '';
-if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
-    $originalName  = basename($_FILES['photo']['name']);
-    $photoFileName = time() . '_' . $originalName;
-    $destination   = "uploads/recipes/" . $photoFileName;
-    move_uploaded_file($_FILES['photo']['tmp_name'], $destination);
-}
-
-// ===== Handle Video Upload (optional) =====
-$videoFilePath = '';
-if (isset($_FILES['video']) && $_FILES['video']['error'] == 0) {
-    $originalVideoName = basename($_FILES['video']['name']);
-    $videoFilePath     = time() . '_' . $originalVideoName;
-    $destination       = "uploads/videos/" . $videoFilePath;
-    move_uploaded_file($_FILES['video']['tmp_name'], $destination);
-}
-
-// ===== Insert Recipe =====
+// ===== Insert Recipe first (to get the recipeID) =====
+// We insert with empty photo/video first, then update after we have the ID
 $stmt = $conn->prepare(
     "INSERT INTO recipe (userID, categoryID, name, description, photoFileName, videoFilePath)
-     VALUES (?, ?, ?, ?, ?, ?)"
+     VALUES (?, ?, ?, ?, '', '')"
 );
-$stmt->bind_param("iissss", $userID, $categoryID, $name, $description, $photoFileName, $videoFilePath);
+$stmt->bind_param("iiss", $userID, $categoryID, $name, $description);
 
 if (!$stmt->execute()) {
     die("Failed to insert recipe: " . $stmt->error);
@@ -52,6 +35,34 @@ if (!$stmt->execute()) {
 $recipeID = $conn->insert_id;
 $stmt->close();
 
+// ===== Handle Photo Upload — named with recipeID =====
+$photoFileName = '';
+if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
+    $originalName  = basename($_FILES['photo']['name']);
+    $photoFileName = $recipeID . '_' . $originalName;
+    $destination   = "images/" . $photoFileName;
+    move_uploaded_file($_FILES['photo']['tmp_name'], $destination);
+}
+
+// ===== Handle Video Upload — named with recipeID (optional) =====
+$videoFilePath = '';
+if (isset($_FILES['video']) && $_FILES['video']['error'] == 0) {
+    $originalVideoName = basename($_FILES['video']['name']);
+    $videoFilePath     = $recipeID . '_' . $originalVideoName;
+    $destination       = "videos/" . $videoFilePath;
+    move_uploaded_file($_FILES['video']['tmp_name'], $destination);
+}
+
+// ===== Update recipe row with the actual file names =====
+$stmtUpdate = $conn->prepare(
+    "UPDATE recipe SET photoFileName = ?, videoFilePath = ? WHERE id = ?"
+);
+$stmtUpdate->bind_param("ssi", $photoFileName, $videoFilePath, $recipeID);
+if (!$stmtUpdate->execute()) {
+    die("Failed to update file names: " . $stmtUpdate->error);
+}
+$stmtUpdate->close();
+
 // ===== Insert Ingredients =====
 $ingredientNames      = $_POST['ingredientName']     ?? [];
 $ingredientQuantities = $_POST['ingredientQuantity'] ?? [];
@@ -59,7 +70,6 @@ $ingredientQuantities = $_POST['ingredientQuantity'] ?? [];
 for ($i = 0; $i < count($ingredientNames); $i++) {
     $ingName = trim($ingredientNames[$i]);
     $ingQty  = trim($ingredientQuantities[$i] ?? '');
-
     if ($ingName === '') continue;
 
     $stmtIng = $conn->prepare(
@@ -76,7 +86,6 @@ $steps = $_POST['step'] ?? [];
 for ($i = 0; $i < count($steps); $i++) {
     $step      = trim($steps[$i]);
     $stepOrder = $i + 1;
-
     if ($step === '') continue;
 
     $stmtStep = $conn->prepare(

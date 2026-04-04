@@ -180,7 +180,7 @@ if (!empty($recipeIDs)) {
                                 <td>
                                     <a href="view-recipe.php?id=<?= $rid ?>"
                                        style="display:flex; align-items:center; gap:8px; text-decoration:none; color:inherit;">
-                                        <img src="uploads/recipes/<?= htmlspecialchars($row['photoFileName']) ?>"
+                                        <img src="images/<?= htmlspecialchars($row['photoFileName']) ?>"
                                              alt="<?= htmlspecialchars($row['name']) ?>"
                                              class="recipe-thumb"
                                              onerror="this.style.display='none'">
@@ -243,7 +243,7 @@ if (!empty($recipeIDs)) {
                                 <!-- Video -->
                                 <td>
                                     <?php if (!empty($row['videoFilePath'])): ?>
-                                        <a href="uploads/videos/<?= htmlspecialchars($row['videoFilePath']) ?>"
+                                        <a href="videos/<?= htmlspecialchars($row['videoFilePath']) ?>"
                                            target="_blank">🎥 Watch</a>
                                     <?php else: ?>
                                         <span style="color:#aaa;">No video</span>

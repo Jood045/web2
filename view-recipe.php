@@ -146,10 +146,10 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
 
       <div class="top-grid">
 
-        <!-- Recipe Photo — stored in uploads/recipes/ -->
+        <!-- Recipe Photo — stored in images/ -->
         <div class="recipe-photo">
           <?php if (!empty($recipePhoto)): ?>
-            <img src="uploads/recipes/<?php echo htmlspecialchars($recipePhoto); ?>"
+            <img src="images/<?php echo htmlspecialchars($recipePhoto); ?>"
                  alt="<?php echo htmlspecialchars($recipeName); ?>">
           <?php else: ?>
             <span style="color:#aaa;">No photo</span>
@@ -272,9 +272,9 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
       <h3 style="margin-top:0;">Video</h3>
       <div class="comment-item">
         <?php if (!empty($recipeVideo)): ?>
-          <!-- Video stored as uploaded file in uploads/videos/ -->
+          <!-- Video stored in videos/ -->
           <video controls style="width:100%; border-radius:12px; max-height:360px;">
-            <source src="uploads/videos/<?php echo htmlspecialchars($recipeVideo); ?>">
+            <source src="videos/<?php echo htmlspecialchars($recipeVideo); ?>">
             Your browser does not support the video tag.
           </video>
         <?php else: ?>

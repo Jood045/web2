@@ -37,30 +37,34 @@ if (!$existing) {
     exit();
 }
 
-// ===== Handle Photo (replace only if new file uploaded) =====
+// ===== Handle Photo — replace only if new file uploaded =====
 $photoFileName = $existing['photoFileName']; // keep old by default
 
 if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
-    $oldPhotoPath = "uploads/recipes/" . $existing['photoFileName'];
+    // Delete old photo file if it exists
+    $oldPhotoPath = "images/" . $existing['photoFileName'];
     if (!empty($existing['photoFileName']) && file_exists($oldPhotoPath)) {
         unlink($oldPhotoPath);
     }
+    // Save new photo named with recipeID
     $originalName  = basename($_FILES['photo']['name']);
-    $photoFileName = time() . '_' . $originalName;
-    move_uploaded_file($_FILES['photo']['tmp_name'], "uploads/recipes/" . $photoFileName);
+    $photoFileName = $recipeID . '_' . $originalName;
+    move_uploaded_file($_FILES['photo']['tmp_name'], "images/" . $photoFileName);
 }
 
-// ===== Handle Video (replace only if new file uploaded) =====
+// ===== Handle Video — replace only if new file uploaded =====
 $videoFilePath = $existing['videoFilePath']; // keep old by default
 
 if (isset($_FILES['video']) && $_FILES['video']['error'] == 0) {
-    $oldVideoPath = "uploads/videos/" . $existing['videoFilePath'];
+    // Delete old video file if it exists
+    $oldVideoPath = "videos/" . $existing['videoFilePath'];
     if (!empty($existing['videoFilePath']) && file_exists($oldVideoPath)) {
         unlink($oldVideoPath);
     }
+    // Save new video named with recipeID
     $originalVideoName = basename($_FILES['video']['name']);
-    $videoFilePath     = time() . '_' . $originalVideoName;
-    move_uploaded_file($_FILES['video']['tmp_name'], "uploads/videos/" . $videoFilePath);
+    $videoFilePath     = $recipeID . '_' . $originalVideoName;
+    move_uploaded_file($_FILES['video']['tmp_name'], "videos/" . $videoFilePath);
 }
 
 // ===== Update recipe row =====
