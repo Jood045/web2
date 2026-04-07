@@ -1,70 +1,45 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 session_start();
 include "db.php";
 
-// استلام البيانات
+// البيانات من الفورم
 $firstName = $_POST['firstName'];
 $lastName = $_POST['lastName'];
 $email = $_POST['emailAddress'];
-$password = $_POST['password'];
+$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-// التحقق إذا المستخدم محظور
-$checkBlocked = "SELECT * FROM blocked_users WHERE emailAddress = '$email'";
-$resultBlocked = $conn->query($checkBlocked);
-
-if ($resultBlocked->num_rows > 0) {
-    header("Location: signup.php?error=You are blocked");
-    exit();
-}
-
-// 1) التحقق هل الإيميل موجود مسبقاً في users
-$checkEmail = "SELECT * FROM users WHERE emailAddress = '$email'";
-$result = $conn->query($checkEmail);
-
-if ($result->num_rows > 0) {
-    header("Location: signup.php?error=Email already registered");
-    exit();
-}
-
-// 2) تشفير كلمة المرور
-$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-// صورة افتراضية
-$photoName = "user.jpg";
-
-// إذا المستخدم رفع صورة
-if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
-    $originalName = $_FILES['photo']['name'];
-    $tempName = $_FILES['photo']['tmp_name'];
-
-    // نخلي اسم الصورة فريد
-    $photoName = time() . "_" . $originalName;
-
-    // مسار الحفظ
-    $destination = "images/" . $photoName;
-
-    // نقل الصورة إلى مجلد images
-    move_uploaded_file($tempName, $destination);
-}
-
-// 4) إدخال المستخدم الجديد
+// 1) نحفظ المستخدم بدون صورة
 $sql = "INSERT INTO users (userType, firstName, lastName, emailAddress, password, photoFileName)
-VALUES ('user', '$firstName', '$lastName', '$email', '$hashedPassword', '$photoName')";
+        VALUES ('user', '$firstName', '$lastName', '$email', '$password', 'default.png')";
 
-if ($conn->query($sql) === TRUE) {
+$conn->query($sql);
 
-    $userID = $conn->insert_id;
+// 2) نجيب ID المستخدم الجديد
+$userID = $conn->insert_id;
 
-    $_SESSION['userID'] = $userID;
-    $_SESSION['userType'] = "user";
+// 3) رفع الصورة
+if ($_FILES['photo']['name'] != "") {
 
-    header("Location: signup.php");
-    exit();
+    $originalName = $_FILES['photo']['name'];
+
+    // نفس المثال: 5_lama.jpg
+    $photoName = $userID . "_" . $originalName;
+
+    move_uploaded_file($_FILES['photo']['tmp_name'], "images/" . $photoName);
 
 } else {
-    echo "Error: " . $conn->error;
+    $photoName = "default.png";
 }
+
+// 4) نحدث اسم الصورة في الداتابيس
+$sqlUpdate = "UPDATE users SET photoFileName = '$photoName' WHERE id = $userID";
+$conn->query($sqlUpdate);
+
+// 5) نحفظ session
+$_SESSION['userID'] = $userID;
+$_SESSION['userType'] = "user";
+
+// 6) تحويل لصفحة المستخدم
+header("Location: user.php");
+exit();
 ?>
