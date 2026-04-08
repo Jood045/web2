@@ -1,6 +1,12 @@
+<?php if(isset($_GET['error'])): ?>
+<p style="color:red; text-align:center;">
 <?php
-$error = $_GET['error'] ?? '';
+if($_GET['error'] == "unauthorized"){
+    echo "You must login as a user to access this page";
+}
 ?>
+</p>
+<?php endif; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
