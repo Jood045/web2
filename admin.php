@@ -56,7 +56,7 @@ $resultBlocked = $conn->query($sqlBlocked);
       <img src="images/logo.png" alt="KidBites Logo" class="logo">
     </a>
     <nav class="nav">
-      <a href="logout.php">Logout</a>
+      <a href="index.php">Logout</a>
     </nav>
   </div>
 </header>
