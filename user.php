@@ -4,8 +4,8 @@ include "db.php";
 
 // حماية الصفحة
 if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'user') {
-    header("Location: login.php");
-    exit();
+   header("Location: login.php?error=unauthorized");
+exit();
 }
 
 $userID = $_SESSION['userID'];
