@@ -15,7 +15,6 @@ if ($recipeID == null) {
     exit();
 }
 
-/* هل موجود مسبقًا؟ */
 $sqlCheck = "SELECT *
              FROM likes
              WHERE userID = $userID AND recipeID = $recipeID";
@@ -27,7 +26,6 @@ if (!$resultCheck) {
 }
 
 if (mysqli_num_rows($resultCheck) > 0) {
-    /* موجود -> احذفه */
     $sqlDelete = "DELETE FROM likes
                   WHERE userID = $userID AND recipeID = $recipeID";
 
@@ -35,7 +33,6 @@ if (mysqli_num_rows($resultCheck) > 0) {
         die("Delete query failed: " . mysqli_error($conn));
     }
 } else {
-    /* غير موجود -> أضفه */
     $sqlInsert = "INSERT INTO likes (userID, recipeID)
                   VALUES ($userID, $recipeID)";
 
