@@ -15,7 +15,6 @@ if ($recipeID == null) {
     exit();
 }
 
-/* نتحقق إذا سبق بلّغ */
 $sqlCheck = "SELECT *
              FROM report
              WHERE userID = $userID AND recipeID = $recipeID";
