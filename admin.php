@@ -5,13 +5,11 @@ ini_set('display_errors', 1);
 session_start();
 include "db.php";
 
-// التحقق من تسجيل الدخول
 if (!isset($_SESSION['userID'])) {
     header("Location: login.php?error=Please login first");
     exit();
 }
 
-// التحقق أن المستخدم admin
 if ($_SESSION['userType'] != "admin") {
     header("Location: login.php?error=Access denied");
     exit();
@@ -19,12 +17,10 @@ if ($_SESSION['userType'] != "admin") {
 
 $adminID = $_SESSION['userID'];
 
-// جلب بيانات الأدمن
 $sqlAdmin = "SELECT * FROM users WHERE id = $adminID";
 $resultAdmin = $conn->query($sqlAdmin);
 $admin = $resultAdmin->fetch_assoc();
 
-// جلب التقارير
 $sqlReports = "SELECT report.id AS reportID,
                       recipe.id AS recipeID,
                       recipe.name AS recipeName,
@@ -35,7 +31,6 @@ $sqlReports = "SELECT report.id AS reportID,
                JOIN users ON recipe.userID = users.id";
 $resultReports = $conn->query($sqlReports);
 
-// جلب المستخدمين المحظورين
 $sqlBlocked = "SELECT * FROM blocked_users";
 $resultBlocked = $conn->query($sqlBlocked);
 ?>
@@ -56,7 +51,7 @@ $resultBlocked = $conn->query($sqlBlocked);
       <img src="images/logo.png" alt="KidBites Logo" class="logo">
     </a>
     <nav class="nav">
-      <a href="index.php">Logout</a>
+      <a href="index.php">Sign Out</a>
     </nav>
   </div>
 </header>
