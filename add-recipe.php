@@ -28,7 +28,7 @@ $categoriesResult = $conn->query("SELECT * FROM recipecategory");
         <nav class="nav">
             <a href="user.php">User page</a>
             <a href="my-recipes.php">My Recipes</a>
-            <a href="index.php">Sign Out</a>
+            <a href="signout.php">Sign Out</a>
         </nav>
     </div>
 </header>
