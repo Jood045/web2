@@ -23,7 +23,6 @@ if ($action == "dismiss") {
 }
 
 if ($action == "block") {
-    // نجيب صاحب الوصفة
     $sqlUser = "SELECT users.id, users.firstName, users.lastName, users.emailAddress
                 FROM recipe
                 JOIN users ON recipe.userID = users.id
@@ -36,16 +35,13 @@ if ($action == "block") {
     $lastName = $user['lastName'];
     $email = $user['emailAddress'];
 
-    // إضافة المستخدم إلى blocked_users
     $sqlInsertBlocked = "INSERT INTO blocked_users (firstName, lastName, emailAddress)
                          VALUES ('$firstName', '$lastName', '$email')";
     $conn->query($sqlInsertBlocked);
 
-    // حذف التقرير الحالي
     $sqlDeleteReport = "DELETE FROM report WHERE id = $reportID";
     $conn->query($sqlDeleteReport);
 
-    // حذف المستخدم من users
     $sqlDeleteUser = "DELETE FROM users WHERE id = $blockedID";
     $conn->query($sqlDeleteUser);
 
