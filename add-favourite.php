@@ -15,7 +15,6 @@ if ($recipeID == null) {
     exit();
 }
 
-/* نتحقق هل الوصفة موجودة بالفعل في favourites */
 $sqlCheck = "SELECT * FROM favourites
              WHERE userID = $userID AND recipeID = $recipeID";
 
@@ -26,7 +25,6 @@ if (!$resultCheck) {
 }
 
 if (mysqli_num_rows($resultCheck) > 0) {
-    /* موجودة -> نحذفها */
     $sqlDelete = "DELETE FROM favourites
                   WHERE userID = $userID AND recipeID = $recipeID";
 
@@ -37,7 +35,6 @@ if (mysqli_num_rows($resultCheck) > 0) {
     }
 
 } else {
-    /* غير موجودة -> نضيفها */
     $sqlInsert = "INSERT INTO favourites (userID, recipeID)
                   VALUES ($userID, $recipeID)";
 
@@ -48,7 +45,6 @@ if (mysqli_num_rows($resultCheck) > 0) {
     }
 }
 
-/* رجوع لنفس صفحة الوصفة */
 header("Location: view-recipe.php?id=" . $recipeID);
 exit();
 ?>
