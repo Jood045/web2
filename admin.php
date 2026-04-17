@@ -52,7 +52,7 @@ $resultBlocked = $conn->query($sqlBlocked);
 
 <header>
   <div class="container header-inner">
-    <a class="brand" href="index.php">
+    <a class="brand" href="admin.php">
       <img src="images/logo.png" alt="KidBites Logo" class="logo">
     </a>
     <nav class="nav">
