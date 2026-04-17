@@ -2,7 +2,7 @@
 session_start();
 include "db.php";
 
-// حماية الصفحة
+
 if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'user') {
    header("Location: login.php?error=unauthorized");
 exit();
@@ -11,19 +11,19 @@ exit();
 $userID = $_SESSION['userID'];
 
 
-// ===== بيانات المستخدم =====
+
 $userQuery = "SELECT * FROM users WHERE id = $userID";
 $userResult = $conn->query($userQuery);
 $user = $userResult->fetch_assoc();
 
 
-// ===== عدد الوصفات =====
+
 $countRecipes = "SELECT COUNT(*) as total FROM recipe WHERE userID = $userID";
 $res1 = $conn->query($countRecipes);
 $totalRecipes = $res1->fetch_assoc()['total'];
 
 
-// ===== عدد اللايكات =====
+
 $countLikes = "
 SELECT COUNT(*) as totalLikes 
 FROM likes 
@@ -34,11 +34,11 @@ $res2 = $conn->query($countLikes);
 $totalLikes = $res2->fetch_assoc()['totalLikes'];
 
 
-// ===== جلب الكاتقوري =====
+
 $categories = $conn->query("SELECT * FROM recipecategory");
 
 
-// ===== فلترة =====
+
 $where = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoryID']) && $_POST['categoryID'] != "") {
     $catID = $_POST['categoryID'];
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoryID']) && $_POS
 }
 
 
-// ===== كل الريسيبي =====
+
 $recipesQuery = "
 SELECT recipe.*, 
        users.firstName, users.lastName, users.photoFileName AS userPhoto,
@@ -62,7 +62,7 @@ GROUP BY recipe.id
 $recipes = $conn->query($recipesQuery);
 
 
-// ===== الفافوريت =====
+
 $favQuery = "
 SELECT recipe.*
 FROM favourites
@@ -86,14 +86,14 @@ $favourites = $conn->query($favQuery);
 
 <header>
 <div class="container header-inner">
-<a class="brand" href="index.php">
+<a class="brand" href="user.php">
 <img src="images/logo.png" class="logo">
 </a>
 
 <nav class="nav">
 <a href="user.php">User page</a>
 <a href="my-recipes.php">My Recipes</a>
-<a href="index.php">Sign Out</a>
+<a href="signout.php">Sign Out</a>
 </nav>
 </div>
 </header>
@@ -103,7 +103,7 @@ $favourites = $conn->query($favQuery);
 
 <br><br>
 
-<!-- ===== USER INFO ===== -->
+
 <section class="card">
 <h2>Welcome, <?= $user['firstName'] ?></h2>
 
@@ -118,7 +118,7 @@ Email: <?= $user['emailAddress'] ?>
 </section>
 
 
-<!-- ===== SUMMARY ===== -->
+
 <section class="card">
 <h2><a href="my-recipes.php">My Recipes</a></h2>
 
@@ -127,7 +127,7 @@ Email: <?= $user['emailAddress'] ?>
 </section>
 
 
-<!-- ===== ALL RECIPES ===== -->
+
 <section class="card">
 <h2>All Available Recipes</h2>
 
@@ -215,7 +215,7 @@ Email: <?= $user['emailAddress'] ?>
 </section>
 
 
-<!-- ===== FAVOURITES ===== -->
+
 <section class="card">
 <h2>My Favourite Recipes ♥</h2>
 
