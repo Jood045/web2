@@ -2,13 +2,11 @@
 session_start();
 include "db.php";
 
-// Only logged-in regular users can add recipes
 if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'user') {
     header("Location: login.php");
     exit();
 }
 
-// Fetch categories from database
 $categoriesResult = $conn->query("SELECT * FROM recipecategory");
 ?>
 
@@ -24,7 +22,7 @@ $categoriesResult = $conn->query("SELECT * FROM recipecategory");
 
 <header>
     <div class="container header-inner">
-        <a class="brand" href="index.php">
+        <a class="brand" href="user.php">
             <img src="images/logo.png" alt="KidBites Logo" class="logo">
         </a>
         <nav class="nav">
@@ -43,13 +41,11 @@ $categoriesResult = $conn->query("SELECT * FROM recipecategory");
 
             <form action="process-add-recipe.php" method="POST" enctype="multipart/form-data">
 
-                <!-- Recipe Name -->
                 <div class="field">
                     <label>Recipe Name</label>
                     <input type="text" name="name" placeholder="e.g., Banana Pancakes" required>
                 </div>
 
-                <!-- Category -->
                 <div class="field">
                     <label>Category</label>
                     <select name="categoryID" required>
@@ -60,25 +56,21 @@ $categoriesResult = $conn->query("SELECT * FROM recipecategory");
                     </select>
                 </div>
 
-                <!-- Description -->
                 <div class="field">
                     <label>Description</label>
                     <textarea name="description" rows="3" placeholder="Brief description of the recipe..." required></textarea>
                 </div>
 
-                <!-- Photo -->
                 <div class="field">
                     <label>Recipe Photo</label>
                     <input type="file" name="photo" accept="image/*" required>
                 </div>
 
-                <!-- Video -->
                 <div class="field">
                     <label>Recipe Video (Optional)</label>
                     <input type="file" name="video" accept="video/*">
                 </div>
 
-                <!-- Ingredients -->
                 <div class="field">
                     <label>Ingredients</label>
                     <div id="ingredientsContainer"></div>
@@ -87,7 +79,6 @@ $categoriesResult = $conn->query("SELECT * FROM recipecategory");
                     </button>
                 </div>
 
-                <!-- Instructions / Steps -->
                 <div class="field">
                     <label>Instructions</label>
                     <div id="stepsContainer"></div>
@@ -96,7 +87,6 @@ $categoriesResult = $conn->query("SELECT * FROM recipecategory");
                     </button>
                 </div>
 
-                <!-- Submit -->
                 <div class="btn-row" style="justify-content:center; margin-top:20px;">
                     <button class="btn btn-primary" type="submit">Save Recipe</button>
                     <a class="btn" href="my-recipes.php" style="text-decoration:none;">Cancel</a>
@@ -166,7 +156,6 @@ function renumber(type) {
     }
 }
 
-// Start with one ingredient and one step by default
 window.addEventListener('DOMContentLoaded', function () {
     addIngredient();
     addStep();
