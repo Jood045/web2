@@ -1,7 +1,5 @@
 <?php
-// =====================
-// 1. Session Check
-// =====================
+
 session_start();
 
 if (!isset($_SESSION['userID'])) {
@@ -16,18 +14,14 @@ if ($_SESSION['userType'] !== 'user') {
 
 $userID = $_SESSION['userID'];
 
-// =====================
-// 2. Database Connection
-// =====================
+
 include "db.php";
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// =====================
-// 3. Fetch User's Recipes with Like Count + Category Name
-// =====================
+
 $sql = "SELECT r.id, r.name, r.photoFileName, r.videoFilePath, rc.categoryName,
         (SELECT COUNT(*) FROM likes WHERE recipeID = r.id) AS likeCount
         FROM recipe r
@@ -39,14 +33,10 @@ $stmt->bind_param("i", $userID);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// =====================
-// 4. Fetch Ingredients & Steps per Recipe
-// =====================
-// We'll store them keyed by recipeID
+
 $ingredientsMap  = [];
 $instructionsMap = [];
 
-// Re-fetch recipe IDs first so we can query ingredients/steps
 $stmt2 = $conn->prepare(
     "SELECT id FROM recipe WHERE userID = ?"
 );
@@ -63,7 +53,6 @@ $stmt2->close();
 if (!empty($recipeIDs)) {
     $inList = implode(',', $recipeIDs);
 
-    // Ingredients
     $ingResult = $conn->query(
         "SELECT recipeID, ingredientName, ingredientQuantity
          FROM ingredients
@@ -74,7 +63,6 @@ if (!empty($recipeIDs)) {
         $ingredientsMap[$row['recipeID']][] = $row;
     }
 
-    // Instructions
     $stepResult = $conn->query(
         "SELECT recipeID, step, stepOrder
          FROM instructions
@@ -92,7 +80,6 @@ if (!empty($recipeIDs)) {
     <title>My Recipes - KidBites</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Brief list styling inside table */
         .brief-list {
             margin: 0;
             padding-left: 16px;
@@ -130,7 +117,7 @@ if (!empty($recipeIDs)) {
 
     <header>
         <div class="container header-inner">
-            <a class="brand" href="index.php">
+            <a class="brand" href="user.php">
                 <img src="images/logo.png" alt="KidBites Logo" class="logo">
             </a>
             <nav class="nav">
@@ -172,11 +159,9 @@ if (!empty($recipeIDs)) {
                                 $ings = $ingredientsMap[$rid]  ?? [];
                                 $steps = $instructionsMap[$rid] ?? [];
 
-                                // Show max 3 ingredients, then "+N more"
                                 $maxShow = 3;
                             ?>
                             <tr>
-                                <!-- Recipe: Photo + Name -->
                                 <td>
                                     <a href="view-recipe.php?id=<?= $rid ?>"
                                        style="display:flex; align-items:center; gap:8px; text-decoration:none; color:inherit;">
@@ -190,10 +175,8 @@ if (!empty($recipeIDs)) {
                                     </a>
                                 </td>
 
-                                <!-- Category -->
                                 <td><?= htmlspecialchars($row['categoryName']) ?></td>
 
-                                <!-- Ingredients Brief -->
                                 <td>
                                     <?php if (!empty($ings)): ?>
                                         <ul class="brief-list">
@@ -219,7 +202,6 @@ if (!empty($recipeIDs)) {
                                     <?php endif; ?>
                                 </td>
 
-                                <!-- Steps Brief -->
                                 <td>
                                     <?php if (!empty($steps)): ?>
                                         <ol class="brief-list">
@@ -240,7 +222,6 @@ if (!empty($recipeIDs)) {
                                     <?php endif; ?>
                                 </td>
 
-                                <!-- Video -->
                                 <td>
                                     <?php if (!empty($row['videoFilePath'])): ?>
                                         <a href="videos/<?= htmlspecialchars($row['videoFilePath']) ?>"
@@ -250,15 +231,12 @@ if (!empty($recipeIDs)) {
                                     <?php endif; ?>
                                 </td>
 
-                                <!-- Likes -->
                                 <td><?= $row['likeCount'] ?> ❤️</td>
 
-                                <!-- Edit -->
                                 <td>
                                     <a href="edit-recipe.php?id=<?= $rid ?>" class="btn btn-secondary">Edit</a>
                                 </td>
 
-                                <!-- Delete -->
                                 <td>
                                     <a href="delete-recipe.php?id=<?= $rid ?>"
                                        class="btn"
