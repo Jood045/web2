@@ -2,7 +2,6 @@
 session_start();
 include "db.php";
 
-// حماية الصفحة
 if (!isset($_SESSION['userID'])) {
     header("Location: login.php");
     exit();
@@ -22,7 +21,6 @@ if($recipeID==null){
     die("No ID for this recipe");
 }
 
-/* =====  First Query from recipe ===== */
 
 $sqlRecipe = "SELECT recipe.name, recipe.description, recipe.photoFileName, 
                      recipe.videoFilePath, recipe.userID,
@@ -59,7 +57,6 @@ if ($userID == $creatorID || $_SESSION['userType'] == 'admin') {
 
 
 
-/* =====  second Query from user (user info) ===== */
 
 $sqlUser = "SELECT firstName, lastName, photoFileName
             FROM users
@@ -97,7 +94,6 @@ while ($rowIngredient = mysqli_fetch_assoc($resultIngredients)) {
     $ingredients[] = $rowIngredient;
 }
 
-/* ===== 4th Query instructions ===== */
 $sqlInstructions = "SELECT step, stepOrder
                     FROM instructions
                     WHERE recipeID = $recipeID
@@ -116,7 +112,6 @@ while ($rowInstruction = mysqli_fetch_assoc($resultInstructions)) {
 }
 
 
-/* ===== 5th Query from comment===== */
 $sqlComments = "SELECT comment.comment, comment.date,
                        users.firstName, users.lastName, users.photoFileName
                 FROM comment
@@ -138,7 +133,6 @@ while ($rowComment = mysqli_fetch_assoc($resultComments)) {
 
 
 
-/* ===== 6th Query from favourites===== */
 $sqlFavourite = "SELECT 1
                  FROM favourites
                  WHERE userID = $userID AND recipeID = $recipeID";
@@ -151,7 +145,6 @@ if (!$resultFavourite) {
 
 $hasFavourited = (mysqli_num_rows($resultFavourite) > 0);
 
-/* ===== 7th Query from likes===== */
 $sqlLike = "SELECT *
             FROM likes
             WHERE userID = $userID AND recipeID = $recipeID";
@@ -165,7 +158,6 @@ if (!$resultLike) {
 $hasLiked = (mysqli_num_rows($resultLike) > 0);
 
 
-/* ===== 8th Query from report ===== */
 $sqlReport = "SELECT *
               FROM report
               WHERE userID = $userID AND recipeID = $recipeID";
@@ -181,7 +173,6 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
 
 ?>
 
-<!-- HTML start -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -197,14 +188,14 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
 <body>
  <header>
        <div class="container header-inner">
-      <a class="brand" href="index.html">
+      <a class="brand" href="user.html">
   <img src="images/logo.png" alt="KidBites Logo" class="logo">
 </a>
 
     <nav class="nav">
                 <a href="user.php">User page</a>
                 <a href="my-recipes.php">My Recipes</a>
-                <a href="index.php">Sign Out</a>
+                <a href="signout.php">Sign Out</a>
             </nav>
     </div>
 </header>
@@ -215,7 +206,6 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
   <main>
     <div class="container">
 
-      <!-- TOP: name + photo + action buttons -->
       <section class="card">
         <span class="badge"><?php echo $recipeCategory; ?> </span>
         <h2><?php echo $recipeName; ?></h2>
@@ -273,12 +263,10 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
         </div>
       </section>
 
-      <!-- Recipe Creator -->
       <section class="card">
         <h3 style="margin-top:0;">Recipe Creator</h3>
          <div class="comment-item">
         <div class="creator-row">
-          <!-- user icon replaced by IMAGE -->
           <img
             src="images/<?php echo $creatorPhoto;?> "
             alt="profile photo"
@@ -292,7 +280,6 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
 		</div>
       </section>
 
-      <!-- Details -->
       <section class="card">
         <h3 style="margin-top:0;">Details</h3>
          <div class="comment-item">
@@ -312,7 +299,6 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
       </section>
 
       
-      <!-- Ingredients -->
       <section class="card">
         <h3 style="margin-top:0;">Ingredients</h3>
 		<div class="comment-item">
@@ -330,7 +316,6 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
 </div>
       </section>
 
-      <!-- Instructions -->
      <section class="card">
   <h3 style="margin-top:0;">Instructions</h3> 
   <div class="comment-item">
@@ -346,7 +331,6 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
   </div>
 </section>
 
-      <!-- Video (optional) -->
      <section class="card">
     <h3 style="margin-top:0;">Video</h3>
 
@@ -363,11 +347,9 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
 </section>
       </section>
 
-      <!-- Comments -->
       <section class="card">
         <h3 style="margin-top:0;">Comments</h3>
 
-        <!--the form -->
         <form class="comment-row" id="comment-form" action="add-comment.php" method="post">
         <input type="hidden" name="recipeID" value="<?php echo $recipeID; ?>">
         <div class="field" style="margin:0;">
