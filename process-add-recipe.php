@@ -2,7 +2,6 @@
 session_start();
 include "db.php";
 
-// Only logged-in regular users
 if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'user') {
     header("Location: login.php");
     exit();
@@ -10,7 +9,6 @@ if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'user') {
 
 $userID = $_SESSION['userID'];
 
-// ===== Get form data =====
 $name        = $_POST['name'] ?? '';
 $categoryID  = $_POST['categoryID'] ?? '';
 $description = $_POST['description'] ?? '';
@@ -20,7 +18,6 @@ if (empty($name) || empty($categoryID) || empty($description)) {
     exit();
 }
 
-// ===== Insert Recipe first (to get the recipeID) =====
 $stmt = $conn->prepare(
     "INSERT INTO recipe (userID, categoryID, name, description, photoFileName, videoFilePath)
      VALUES (?, ?, ?, ?, '', '')"
@@ -34,7 +31,6 @@ if (!$stmt->execute()) {
 $recipeID = $conn->insert_id;
 $stmt->close();
 
-// ===== Handle Photo Upload =====
 $photoFileName = '';
 
 if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
@@ -53,7 +49,6 @@ if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
     }
 }
 
-// ===== Handle Video Upload =====
 $videoFilePath = '';
 
 if (isset($_FILES['video']) && $_FILES['video']['error'] == 0) {
@@ -72,7 +67,6 @@ if (isset($_FILES['video']) && $_FILES['video']['error'] == 0) {
     }
 }
 
-// ===== Update recipe row with actual file names =====
 $stmtUpdate = $conn->prepare(
     "UPDATE recipe SET photoFileName = ?, videoFilePath = ? WHERE id = ?"
 );
@@ -83,7 +77,6 @@ if (!$stmtUpdate->execute()) {
 }
 $stmtUpdate->close();
 
-// ===== Insert Ingredients =====
 $ingredientNames      = $_POST['ingredientName'] ?? [];
 $ingredientQuantities = $_POST['ingredientQuantity'] ?? [];
 
@@ -100,7 +93,6 @@ for ($i = 0; $i < count($ingredientNames); $i++) {
     $stmtIng->close();
 }
 
-// ===== Insert Instructions =====
 $steps = $_POST['step'] ?? [];
 
 for ($i = 0; $i < count($steps); $i++) {
