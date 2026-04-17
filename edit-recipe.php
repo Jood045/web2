@@ -2,7 +2,6 @@
 session_start();
 include "db.php";
 
-// Only logged-in regular users
 if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'user') {
     header("Location: login.php");
     exit();
@@ -10,7 +9,6 @@ if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'user') {
 
 $userID = $_SESSION['userID'];
 
-// ===== Check recipe ID in query string =====
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header("Location: my-recipes.php");
     exit();
@@ -18,7 +16,6 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $recipeID = (int) $_GET['id'];
 
-// ===== Fetch recipe — must belong to this user =====
 $stmtRecipe = $conn->prepare(
     "SELECT * FROM recipe WHERE id = ? AND userID = ?"
 );
@@ -32,10 +29,8 @@ if (!$recipe) {
     exit();
 }
 
-// ===== Fetch categories =====
 $categoriesResult = $conn->query("SELECT * FROM recipecategory");
 
-// ===== Fetch ingredients =====
 $ingredientsResult = $conn->query(
     "SELECT * FROM ingredients WHERE recipeID = $recipeID"
 );
@@ -44,7 +39,6 @@ while ($row = $ingredientsResult->fetch_assoc()) {
     $ingredients[] = $row;
 }
 
-// ===== Fetch instructions =====
 $instructionsResult = $conn->query(
     "SELECT * FROM instructions WHERE recipeID = $recipeID ORDER BY stepOrder ASC"
 );
@@ -66,13 +60,13 @@ while ($row = $instructionsResult->fetch_assoc()) {
 
 <header>
     <div class="container header-inner">
-        <a class="brand" href="index.php">
+        <a class="brand" href="user.php">
             <img src="images/logo.png" alt="KidBites Logo" class="logo">
         </a>
         <nav class="nav">
             <a href="user.php">User page</a>
             <a href="my-recipes.php">My Recipes</a>
-            <a href="index.php">Sign Out</a>
+            <a href="signout.php">Sign Out</a>
         </nav>
     </div>
 </header>
@@ -85,17 +79,14 @@ while ($row = $instructionsResult->fetch_assoc()) {
 
             <form action="process-edit-recipe.php" method="POST" enctype="multipart/form-data">
 
-                <!-- Hidden recipe ID -->
                 <input type="hidden" name="recipeID" value="<?= $recipeID ?>">
 
-                <!-- Recipe Name -->
                 <div class="field">
                     <label>Recipe Name</label>
                     <input type="text" name="name"
                            value="<?= htmlspecialchars($recipe['name']) ?>" required>
                 </div>
 
-                <!-- Category -->
                 <div class="field">
                     <label>Category</label>
                     <select name="categoryID" required>
@@ -109,13 +100,11 @@ while ($row = $instructionsResult->fetch_assoc()) {
                     </select>
                 </div>
 
-                <!-- Description -->
                 <div class="field">
                     <label>Description</label>
                     <textarea name="description" rows="3" required><?= htmlspecialchars($recipe['description']) ?></textarea>
                 </div>
 
-                <!-- Current Photo -->
                 <div class="field">
                     <label>Current Photo</label>
                     <?php if (!empty($recipe['photoFileName'])): ?>
@@ -129,7 +118,6 @@ while ($row = $instructionsResult->fetch_assoc()) {
                     <input type="file" name="photo" accept="image/*">
                 </div>
 
-                <!-- Current Video -->
                 <div class="field">
                     <label>Current Video</label>
                     <?php if (!empty($recipe['videoFilePath'])): ?>
@@ -143,7 +131,6 @@ while ($row = $instructionsResult->fetch_assoc()) {
                     <input type="file" name="video" accept="video/*">
                 </div>
 
-                <!-- Ingredients -->
                 <div class="field">
                     <label>Ingredients</label>
                     <div id="ingredientsContainer">
@@ -170,7 +157,6 @@ while ($row = $instructionsResult->fetch_assoc()) {
                     </button>
                 </div>
 
-                <!-- Instructions -->
                 <div class="field">
                     <label>Instructions</label>
                     <div id="stepsContainer">
@@ -194,7 +180,6 @@ while ($row = $instructionsResult->fetch_assoc()) {
                     </button>
                 </div>
 
-                <!-- Submit -->
                 <div class="btn-row" style="justify-content:center; margin-top:20px;">
                     <button class="btn btn-primary" type="submit">Save Changes</button>
                     <a class="btn" href="my-recipes.php" style="text-decoration:none;">Cancel</a>
