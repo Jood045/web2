@@ -41,7 +41,7 @@ $categories = $conn->query("SELECT * FROM recipecategory");
 
 $where = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['categoryID']) && $_POST['categoryID'] != "") {
-    $catID = $_POST['categoryID'];
+    $catID = (int) $_POST['categoryID'];
     $where = "WHERE recipe.categoryID = $catID";
 }
 
