@@ -188,7 +188,7 @@ $hasReported = (mysqli_num_rows($resultReport) > 0);
 <body>
  <header>
        <div class="container header-inner">
-      <a class="brand" href="user.html">
+      <a class="brand" href="user.php">
   <img src="images/logo.png" alt="KidBites Logo" class="logo">
 </a>
 
