@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 08, 2026 at 08:38 PM
--- Server version: 5.7.24
+-- Generation Time: 20 أبريل 2026 الساعة 14:53
+-- إصدار الخادم: 5.7.24
 -- PHP Version: 8.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blocked_users`
+-- بنية الجدول `blocked_users`
 --
 
 CREATE TABLE `blocked_users` (
@@ -35,7 +35,7 @@ CREATE TABLE `blocked_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `blocked_users`
+-- إرجاع أو استيراد بيانات الجدول `blocked_users`
 --
 
 INSERT INTO `blocked_users` (`id`, `firstName`, `lastName`, `emailAddress`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `blocked_users` (`id`, `firstName`, `lastName`, `emailAddress`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
+-- بنية الجدول `comment`
 --
 
 CREATE TABLE `comment` (
@@ -57,7 +57,7 @@ CREATE TABLE `comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `comment`
+-- إرجاع أو استيراد بيانات الجدول `comment`
 --
 
 INSERT INTO `comment` (`id`, `recipeID`, `userID`, `comment`, `date`) VALUES
@@ -77,7 +77,7 @@ INSERT INTO `comment` (`id`, `recipeID`, `userID`, `comment`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `favourites`
+-- بنية الجدول `favourites`
 --
 
 CREATE TABLE `favourites` (
@@ -88,7 +88,7 @@ CREATE TABLE `favourites` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ingredients`
+-- بنية الجدول `ingredients`
 --
 
 CREATE TABLE `ingredients` (
@@ -99,7 +99,7 @@ CREATE TABLE `ingredients` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `ingredients`
+-- إرجاع أو استيراد بيانات الجدول `ingredients`
 --
 
 INSERT INTO `ingredients` (`id`, `recipeID`, `ingredientName`, `ingredientQuantity`) VALUES
@@ -121,7 +121,7 @@ INSERT INTO `ingredients` (`id`, `recipeID`, `ingredientName`, `ingredientQuanti
 -- --------------------------------------------------------
 
 --
--- Table structure for table `instructions`
+-- بنية الجدول `instructions`
 --
 
 CREATE TABLE `instructions` (
@@ -132,7 +132,7 @@ CREATE TABLE `instructions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `instructions`
+-- إرجاع أو استيراد بيانات الجدول `instructions`
 --
 
 INSERT INTO `instructions` (`id`, `recipeID`, `step`, `stepOrder`) VALUES
@@ -152,7 +152,7 @@ INSERT INTO `instructions` (`id`, `recipeID`, `step`, `stepOrder`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `likes`
+-- بنية الجدول `likes`
 --
 
 CREATE TABLE `likes` (
@@ -160,10 +160,27 @@ CREATE TABLE `likes` (
   `recipeID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- إرجاع أو استيراد بيانات الجدول `likes`
+--
+
+INSERT INTO `likes` (`userID`, `recipeID`) VALUES
+(10, 1),
+(12, 1),
+(6, 2),
+(7, 2),
+(8, 2),
+(12, 2),
+(6, 3),
+(7, 3),
+(10, 3),
+(9, 4),
+(12, 4);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recipe`
+-- بنية الجدول `recipe`
 --
 
 CREATE TABLE `recipe` (
@@ -177,7 +194,7 @@ CREATE TABLE `recipe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `recipe`
+-- إرجاع أو استيراد بيانات الجدول `recipe`
 --
 
 INSERT INTO `recipe` (`id`, `userID`, `categoryID`, `name`, `description`, `photoFileName`, `videoFilePath`) VALUES
@@ -189,7 +206,7 @@ INSERT INTO `recipe` (`id`, `userID`, `categoryID`, `name`, `description`, `phot
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recipecategory`
+-- بنية الجدول `recipecategory`
 --
 
 CREATE TABLE `recipecategory` (
@@ -198,7 +215,7 @@ CREATE TABLE `recipecategory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `recipecategory`
+-- إرجاع أو استيراد بيانات الجدول `recipecategory`
 --
 
 INSERT INTO `recipecategory` (`id`, `categoryName`) VALUES
@@ -209,7 +226,7 @@ INSERT INTO `recipecategory` (`id`, `categoryName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `report`
+-- بنية الجدول `report`
 --
 
 CREATE TABLE `report` (
@@ -221,7 +238,7 @@ CREATE TABLE `report` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- بنية الجدول `users`
 --
 
 CREATE TABLE `users` (
@@ -235,7 +252,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- إرجاع أو استيراد بيانات الجدول `users`
 --
 
 INSERT INTO `users` (`id`, `userType`, `firstName`, `lastName`, `emailAddress`, `password`, `photoFileName`) VALUES
@@ -246,7 +263,8 @@ INSERT INTO `users` (`id`, `userType`, `firstName`, `lastName`, `emailAddress`, 
 (10, 'user', 'lama', 'Khaled', 'k@gmail.com', '$2y$10$K71hu.4FIuVvHJeeJtlTb.6Lt77kc9BJLAUXdav2t926BzxPFxq3W', 'default.png'),
 (11, 'user', 'sara', 'Ahmed', 'A@gmail.com', '$2y$10$TRqhT.W.uIvEZS3afBMQueb.wgw1bukUe7REydole6R1zQSGGpLAa', 'user.jpg'),
 (12, 'user', 'fofo', 'fofo', 'f@gmail.com', '$2y$10$yP8deZwM6q86X/G1D5vAzuMm43u35Pt4V5YK8vwNeRkCpMuCC.lUG', 'user.jpg'),
-(13, 'admin', 'SHATHA', 'BIN MANA', 'admin@gmail.com', '$2y$10$bVKsjDDvOy0J0Zvqm/Dn3uP.tLuPCCvZ8kImb01RGB3MdE.ADoA3y', '13_staff5.jpg');
+(13, 'admin', 'SHATHA', 'BIN MANA', 'admin@gmail.com', '$2y$10$bVKsjDDvOy0J0Zvqm/Dn3uP.tLuPCCvZ8kImb01RGB3MdE.ADoA3y', '13_staff5.jpg'),
+(14, 'user', 'Rana', 'alsalman', 'ranno.alsalman@icloud.com', '$2y$10$PDoPynrOqk7gnEnm7ZCRNuF3KSOzx5IP2hPOG8KJqnHZrDhREJ2kG', '14_بطاقة عيد.jpg');
 
 --
 -- Indexes for dumped tables
@@ -374,54 +392,54 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- Constraints for dumped tables
+-- قيود الجداول المحفوظة
 --
 
 --
--- Constraints for table `comment`
+-- القيود للجدول `comment`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`id`),
   ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `favourites`
+-- القيود للجدول `favourites`
 --
 ALTER TABLE `favourites`
   ADD CONSTRAINT `favourites_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `favourites_ibfk_2` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`id`);
 
 --
--- Constraints for table `ingredients`
+-- القيود للجدول `ingredients`
 --
 ALTER TABLE `ingredients`
   ADD CONSTRAINT `ingredients_ibfk_1` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`id`);
 
 --
--- Constraints for table `instructions`
+-- القيود للجدول `instructions`
 --
 ALTER TABLE `instructions`
   ADD CONSTRAINT `instructions_ibfk_1` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`id`);
 
 --
--- Constraints for table `likes`
+-- القيود للجدول `likes`
 --
 ALTER TABLE `likes`
   ADD CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`recipeID`) REFERENCES `recipe` (`id`);
 
 --
--- Constraints for table `recipe`
+-- القيود للجدول `recipe`
 --
 ALTER TABLE `recipe`
   ADD CONSTRAINT `recipe_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `recipe_ibfk_2` FOREIGN KEY (`categoryID`) REFERENCES `recipecategory` (`id`);
 
 --
--- Constraints for table `report`
+-- القيود للجدول `report`
 --
 ALTER TABLE `report`
   ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`id`),
